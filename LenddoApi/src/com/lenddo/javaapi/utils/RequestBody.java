@@ -64,10 +64,10 @@ public class RequestBody {
         this.clientId = clientId;
         switch (endpoint) {
             case ENDPOINT_CLIENTSCORE:
-                this.path = LenddoConfig.ENDPOINT_CLIENTSCORE + clientId;
+                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + clientId;
                 break;
             case ENDPOINT_CLIENTVERIFICATION:
-                this.path = LenddoConfig.ENDPOINT_CLIENTVERIFICATION + clientId;
+                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + clientId;
                 break;
             default:
                 Log.e(TAG,"setPath(endpoint, clientId) Unknown endpoint value: " + endpoint);
@@ -90,6 +90,10 @@ public class RequestBody {
     }
 
     public String getPath() {
+        return path;
+    }
+
+    public String getRequest() {
         return request;
     }
 

@@ -1,6 +1,9 @@
 package com.lenddo.javaapi.utils;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -18,6 +21,7 @@ import java.util.GregorianCalendar;
 public class ApiUtils {
 
     private static final String TAG = ApiUtils.class.getName();
+    private static Gson gson = null;
 
     public static String getDate() {
         // Tue Dec 08 11:00:00 GMT 2015
@@ -54,6 +58,13 @@ public class ApiUtils {
             e.printStackTrace();
         }
         return hash;
+    }
+
+    public static String convertObjectToJsonString(Object object) {
+        if (gson == null) {
+            gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().disableHtmlEscaping().create();
+        }
+        return gson.toJson(object);
     }
 
 }

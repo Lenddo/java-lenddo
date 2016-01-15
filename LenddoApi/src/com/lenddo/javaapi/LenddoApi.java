@@ -2,12 +2,16 @@ package com.lenddo.javaapi;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.lenddo.javaapi.models.APIError;
 import com.lenddo.javaapi.models.ClientScore;
 import com.lenddo.javaapi.models.ClientVerification;
+import com.lenddo.javaapi.services.LenddoScoreService;
 import com.lenddo.javaapi.utils.ApiUtils;
+import com.lenddo.javaapi.utils.ErrorUtils;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;
-import retrofit.*;
+import retrofit2.*;
+
 
 import java.io.IOException;
 
@@ -18,9 +22,15 @@ public class LenddoApi {
 
     private String apikey;
     private String apisecret;
-    private LenddoService lenddoservice;
+    private LenddoScoreService lenddoScoreService;
+    private Retrofit retrofit;
     private static final String TAG = LenddoApi.class.getName();
 
+    /**
+     * Sets the debug mode for outputting log messages.
+     *
+     * @param debugMode boolean value for the debug mode settings
+     */
     public static void debugMode(boolean debugMode) {
         LenddoConfig.setDebugMode(debugMode);
         if (debugMode == true) {
@@ -30,6 +40,9 @@ public class LenddoApi {
         }
     }
 
+    /**
+     * Returns the Api Key.
+     */
     public String getApikey() {
         return apikey;
     }
@@ -38,6 +51,9 @@ public class LenddoApi {
         this.apikey = apikey;
     }
 
+    /**
+     * Returns the Api Secret.
+     */
     public String getApisecret() {
         return apisecret;
     }
@@ -46,30 +62,90 @@ public class LenddoApi {
         this.apisecret = apisecret;
     }
 
-    private void setService(LenddoService service) {
-        this.lenddoservice = service;
+    private void setService(LenddoScoreService service) {
+        this.lenddoScoreService = service;
     }
 
+    /**
+     * Class constructor specifying apiKey and apiSecret.
+     */
     public LenddoApi(String apiKey, String apiSecret) {
-        Log.i(TAG, "Initialize LenddoApi.");
+        Log.i(TAG, "Initialize LenddoApi v" + LenddoConfig.api_version);
         Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
         setApikey(apiKey);
         setApisecret(apiSecret);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(LenddoConfig.base_url)
+        retrofit = new Retrofit.Builder()
+                .baseUrl(LenddoConfig.score_base_url)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        setService(retrofit.create(LenddoService.class));
+        setService(retrofit.create(LenddoScoreService.class));
     }
 
-    public LenddoService getService() {
-        return lenddoservice;
+    public LenddoScoreService getService() {
+        return lenddoScoreService;
     }
 
-    public ClientScore getClientScoreAsPojo(String clientId) {
-        return null;
+    /**
+     * Get client's score as an object of ClientScore class.
+     *
+     * @param clientId  the client id number
+     */
+    public ClientScore getClientScore(String clientId) {
+        Log.i(TAG,"GET /ClientScore/"+clientId);
+        String date = ApiUtils.getDate();
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTSCORE,clientId);
+        Log.d(TAG, "Message body:\n"+requestbody.toString());
+        Call<ClientScore> call = getService().getClientScorePOJO(clientId, date, ApiUtils.getAuthorization(getApikey(), getApisecret(), requestbody.toString()));
+
+        ClientScore pojo = null;
+        try {
+            pojo = call.execute().body();
+            Log.i(TAG,"ClientScore: RAW Response => " + ApiUtils.convertObjectToJsonString(pojo));
+        } catch (IOException e) {
+            Log.e(TAG,"getClientScoreAsPojo(clientId) IOException");
+            e.printStackTrace();
+        }
+
+        return pojo;
     }
 
+    /**
+     * Get client's score as a JSON string asynchronously.
+     *
+     * @param clientId  the client id number
+     * @param callback  the response handler
+     */
+    public void getClientScore(String clientId, final LenddoApiCallback callback) {
+        Log.i(TAG,"GET /ClientScore/"+clientId);
+        String date = ApiUtils.getDate();
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTSCORE,clientId);
+        Log.d(TAG, "Message body:\n"+requestbody.toString());
+        Call<ClientScore> call = getService().getClientScorePOJO(clientId, date, ApiUtils.getAuthorization(getApikey(), getApisecret(), requestbody.toString()));
+
+        call.enqueue(new Callback<ClientScore>() {
+            @Override
+            public void onResponse(Response<ClientScore> response) {
+                ClientScore clientScore = response.body();
+                if (clientScore == null) {
+                    clientScore = new ClientScore();
+                }
+
+                Log.i(TAG,"ClientScore: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientScore));
+                callback.onResponse(clientScore);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    /**
+     * Get client's score as an instantiation of JsonObject.
+     *
+     * @param clientId  the client id number
+     */
     public JsonObject getClientScoreAsGson(String clientId) {
         Log.i(TAG,"GET /ClientScore/"+clientId);
         String date = ApiUtils.getDate();
@@ -79,8 +155,14 @@ public class LenddoApi {
 
         JsonObject json = null;
         try {
-            json = call.execute().body().getAsJsonObject();
-            Log.i(TAG,"ClientScore: RAW Response => " + json.toString());
+            JsonElement element = call.execute(). body();
+            if (element != null) {
+                json = element.getAsJsonObject();
+                Log.i(TAG,"ClientScore: RAW Response => " + json.toString());
+            } else {
+                json = new JsonObject();
+                Log.e(TAG,"getClientScoreAsGson(clientId): returned null for client_id:"+clientId);
+            }
         } catch (IOException e) {
             Log.e(TAG,"getClientScoreAsGson(clientId) IOException");
             e.printStackTrace();
@@ -89,27 +171,82 @@ public class LenddoApi {
         return json;
     }
 
+    /**
+     * Get client's score as a JSON String.
+     *
+     * @param clientId  the client id number
+     */
     public String getClientScoreAsString(String clientId) {
         return getClientScoreAsGson(clientId).toString();
-//        call.enqueue(new Callback<ClientScore>() {
-//            @Override
-//            public void onResponse(Response<ClientScore> response, Retrofit retrofit) {
-//                // Get result Score from response.body()
-//                int statusCode = response.code();
-//                Log.d(TAG, response.body().toString());
-//            }
-//
-//            @Override
-//            public void onFailure(Throwable throwable) {
-//
-//            }
-//        });
     }
 
-    public ClientVerification getClientVerificationAsPOJO(String clientId) {
-        return null;
+    /**
+     * Get client's verification as a JSON string asynchronously.
+     *
+     * @param clientId  the client id number
+     * @param callback  the response handler
+     */
+    public void getClientVerification(String clientId, final LenddoApiCallback callback) {
+        Log.i(TAG,"GET /ClientVerification/"+clientId);
+        String date = ApiUtils.getDate();
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTVERIFICATION,clientId);
+        Log.d(TAG, "Message body:\n"+requestbody.toString());
+        Call<ClientVerification> call = getService().getClientVerificationPOJO(clientId, date, ApiUtils.getAuthorization(getApikey(), getApisecret(), requestbody.toString()));
+
+        call.enqueue(new Callback<ClientVerification>() {
+            @Override
+            public void onResponse(Response<ClientVerification> response) {
+                if (response.isSuccess()) {
+                    ClientVerification clientVerification = response.body();
+                    if (clientVerification == null) {
+                        clientVerification = new ClientVerification();
+                    }
+                    Log.i(TAG,"ClientVerification: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientVerification));
+                    callback.onResponse(clientVerification);
+                } else {
+                    APIError error = ErrorUtils.parseError(response, retrofit);
+                    Log.e(TAG,error.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+
     }
 
+    /**
+     * Get client's verification as an object of ClientVerification class.
+     *
+     * @param clientId  the client id number
+     */
+    public ClientVerification getClientVerification(String clientId) {
+        Log.i(TAG,"GET /ClientVerification/"+clientId);
+        String date = ApiUtils.getDate();
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTVERIFICATION,clientId);
+        Log.d(TAG, "Message body:\n"+requestbody.toString());
+        Call<ClientVerification> call = getService().getClientVerificationPOJO(clientId, date, ApiUtils.getAuthorization(getApikey(), getApisecret(), requestbody.toString()));
+
+        ClientVerification pojo = null;
+        try {
+            pojo = call.execute().body();
+            Log.i(TAG,"ClientVerification: RAW Response => " + ApiUtils.convertObjectToJsonString(pojo));
+        } catch (IOException e) {
+            Log.e(TAG,"getClientVerificationAsPojo(clientId) IOException");
+            e.printStackTrace();
+        }
+
+        return pojo;
+    }
+
+
+    /**
+     * Get client's verification as an instantiation of JsonObject.
+     *
+     * @param clientId  the client id number
+     */
     public JsonObject getClientVerificationAsGson(String clientId) {
         Log.i(TAG,"GET /ClientVerification/"+clientId);
         String date = ApiUtils.getDate();
@@ -119,8 +256,14 @@ public class LenddoApi {
 
         JsonObject json = null;
         try {
-            json = call.execute().body().getAsJsonObject();
-            Log.i(TAG,"ClientVerification: RAW Response => " + json.toString());
+            JsonElement element = call.execute().body();
+            if (element != null) {
+                json = element.getAsJsonObject();
+                Log.i(TAG,"ClientVerification: RAW Response => " + json.toString());
+            } else {
+                json = new JsonObject();
+                Log.e(TAG,"getClientVerificationAsGson(clientId): returned null for client_id:"+clientId);
+            }
         } catch (IOException e) {
             Log.e(TAG,"getClientVerificationAsGson(clientId) IOException");
             e.printStackTrace();
@@ -129,7 +272,13 @@ public class LenddoApi {
         return json;
     }
 
+    /**
+     * Get client's verification as a JSON String.
+     *
+     * @param clientId  the client id number
+     */
     public String getClientVerificationAsString(String clientId) {
         return getClientVerificationAsGson(clientId).toString();
     }
+
 }

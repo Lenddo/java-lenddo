@@ -1,5 +1,6 @@
 package com.lenddo.javaapi;
 
+import com.lenddo.javaapi.services.LenddoScoreService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,8 +12,16 @@ import static org.junit.Assert.*;
  */
 public class LenddoApiTest {
 
+    protected String apikey;
+    protected String apisecret;
+    protected LenddoApi lenddoApi;
+    protected LenddoScoreService lenddoservice;
+
     @Before
     public void setUp() throws Exception {
+        apikey = "apikey";
+        apisecret = "apisecret";
+        lenddoApi = new LenddoApi(apikey, apisecret);
 
     }
 
@@ -28,12 +37,12 @@ public class LenddoApiTest {
 
     @Test
     public void testGetApikey() throws Exception {
-
+        assertEquals(lenddoApi.getApikey(), apikey);
     }
 
     @Test
     public void testGetApisecret() throws Exception {
-
+        assertEquals(lenddoApi.getApisecret(), apisecret);
     }
 
     @Test
