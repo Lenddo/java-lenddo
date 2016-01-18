@@ -41,9 +41,6 @@ v1.0.0  -- (01/15/2016) Initial Release
         
 v0.0.1  - (12/09/2015) Initial version
 
-### Todos
-- Whitelabel Scoring
-- Webhooks support
 
 License
 ----
