@@ -3,7 +3,7 @@ package com.lenddo.javaapi;
 import com.google.gson.JsonElement;
 import com.lenddo.javaapi.services.LenddoOnboardingService;
 import com.lenddo.javaapi.utils.Log;
-import retrofit2.GsonConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 

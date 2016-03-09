@@ -10,7 +10,11 @@ import com.lenddo.javaapi.utils.ApiUtils;
 import com.lenddo.javaapi.utils.ErrorUtils;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;
-import retrofit2.*;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 import java.io.IOException;
@@ -124,7 +128,7 @@ public class LenddoApi {
 
         call.enqueue(new Callback<ClientScore>() {
             @Override
-            public void onResponse(Response<ClientScore> response) {
+            public void onResponse(Call<ClientScore> call, Response<ClientScore> response) {
                 ClientScore clientScore = response.body();
                 if (clientScore == null) {
                     clientScore = new ClientScore();
@@ -135,7 +139,7 @@ public class LenddoApi {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<ClientScore> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
@@ -195,7 +199,7 @@ public class LenddoApi {
 
         call.enqueue(new Callback<ClientVerification>() {
             @Override
-            public void onResponse(Response<ClientVerification> response) {
+            public void onResponse(Call<ClientVerification> call, Response<ClientVerification> response) {
                 if (response.isSuccess()) {
                     ClientVerification clientVerification = response.body();
                     if (clientVerification == null) {
@@ -210,7 +214,7 @@ public class LenddoApi {
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<ClientVerification> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

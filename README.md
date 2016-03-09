@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v1.0.0
+##### v1.0.1
 
 ### 
 ###
@@ -24,11 +24,19 @@ lenddoapi.getClientVerificationAsString("client_id");
 ```
 
 ### Release Version
+[**v1.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.1).  - (03/09/2016) security update
+
 [**v1.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.0).  - (01/15/2016) Initial Release
 
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v1.0.1  -- (03/09/2016) security update
+- Fixed SSLHandshakeException
+- Updated to use TLSv1.2 and latest Ciphers for security
+- Updated Retrofit2 and OkHttp3 libraries
+
+
 v1.0.0  -- (01/15/2016) Initial Release
 - Return response as POJO
 - Added and fixed code comments 
