@@ -8,7 +8,7 @@
 Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerification. Usage is very simple and straightforward. This supports Synchronous and Asynchronous calls. 
 
 ### Usage
-1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v1.0.0/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
+1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v1.0.1/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
 
 2) Initialize the LenddoApi object by supplying the provided api_key and api_secret Strings.
 ```java
