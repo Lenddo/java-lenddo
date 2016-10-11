@@ -1,29 +1,91 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v1.0.1
+##### v1.0.2
 
 ### 
 ###
-Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerification. Usage is very simple and straightforward. This supports Synchronous and Asynchronous calls. 
+Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method.
 
 ### Usage
-1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v1.0.1/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
+1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v1.0.2/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
 
-2) Initialize the LenddoApi object by supplying the provided api_key and api_secret Strings.
+2) Initialize the LenddoApi object by supplying the provided api\_key, api\_secret and partner\_script_id Strings.
+
 ```java
-LenddoApi lenddoapi = new LenddoApi("api_key", "api_secret");
+        // Required imports
+        import com.lenddo.javaapi.LenddoApi;
+        import com.lenddo.javaapi.LenddoApiCallback;
+        import com.lenddo.javaapi.models.ClientScore;
+        import com.lenddo.javaapi.models.ClientVerification;
+
+        ...
+
+        // Provide your credentials here
+        String api_key = "YOUR API KEY";
+        String api_secret = "YOUR API SECRET";
+        String partner_script_id = "YOUR PARTNER SCRIPT ID";
+        
+        // Initialize the LenddoApi object
+        LenddoApi lenddoapi = new LenddoApi(api_key, api_secret, partner_script_id);
 ```
-3) To get a ClientScore, call the getClientScoreAsString(clientId) method and provide the client_id as parameter. This will return a response String in JSON format.
+
+3) To get a ClientScore, call the getClientScore(clientId, callback) method and provide the client_id and a LenddoApiCallback object as parameter.
+
 ```java
-lenddoapi.getClientScoreAsString("client_id");
+        lenddoapi.getClientScore("YOUR_CLIENT_ID", new LenddoApiCallback<ClientScore>() {
+            @Override
+            public void onResponse(ClientScore response) {
+                System.out.println("score: "+response.score);
+                System.out.println("flags: "+response.flags);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+        });
 ```
-4) To get a ClientVerification, call the getClientVerificationAsString(clientId) method and provide the client_id as parameter. This will return a response String in JSON format.
+
+4) To get a ClientVerification, call the getClientVerification(clientId, callback) method and provide the client_id and a LenddoApiCallback object as parameter.
+
+
 ```java
-lenddoapi.getClientVerificationAsString("client_id");
+          lenddoapi.getClientVerification("YOUR_CLIENT_ID", new LenddoApiCallback<ClientVerification>() {
+              @Override
+              public void onResponse(ClientVerification response) {
+                  System.out.println("ClientVerification: "+ ApiUtils.convertObjectToJsonString(response));
+                  System.out.println("probes: "+ ApiUtils.convertObjectToJsonString(response.probes));
+                  System.out.println("probe name: "+ response.probes.name);
+                  System.out.println("probe firstname: "+ response.probes.name.get(0));
+              }
+
+              @Override
+              public void onFailure(Throwable t) {
+                  System.out.println("Connection Failure: "+t.getMessage());
+              }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+          });
+```
+
+5) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
+
+```java
+          String jsonstring = ApiUtils.convertObjectToJsonString(response);
 ```
 
 ### Release Version
+[**v1.0.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.2).  - (10/12/2016) security update
+
 [**v1.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.1).  - (03/09/2016) security update
 
 [**v1.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.0).  - (01/15/2016) Initial Release
@@ -31,6 +93,11 @@ lenddoapi.getClientVerificationAsString("client_id");
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v1.0.2  -- (10/12/2016) security update
+- Updated OkHTTP3 and Retrofit2 libraries
+- Removed legacy support and updated to latest api call
+- Calls are now asynchronous and returns POJO
+
 v1.0.1  -- (03/09/2016) security update
 - Fixed SSLHandshakeException
 - Updated to use TLSv1.2 and latest Ciphers for security

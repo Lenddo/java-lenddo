@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Joey Mar Antonio on 12/8/15.
@@ -16,6 +17,7 @@ public interface LenddoScoreService {
     // GET "/ClientScore/{clientId}"
     @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + "{clientId}")
     Call<ClientScore> getClientScorePOJO(@Path("clientId") String clientId,
+                                         @Query("partner_script_id") String partner_script_id,
                                          @Header("Date") String date,
                                          @Header("Authorization") String authorization
     );
@@ -23,6 +25,7 @@ public interface LenddoScoreService {
     // GET "/ClientScore/{clientId}"
     @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + "{clientId}")
     Call<JsonElement> getClientScore(@Path("clientId") String clientId,
+                                     @Query("partner_script_id") String partner_script_id,
                                      @Header("Date") String date,
                                      @Header("Authorization") String authorization
     );
@@ -31,6 +34,7 @@ public interface LenddoScoreService {
     // GET "/ClientVerification/{clientId}"
     @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + "{clientId}")
     Call<ClientVerification> getClientVerificationPOJO(@Path("clientId") String clientId,
+                                                       @Query("partner_script_id") String partner_script_id,
                                                        @Header("Date") String date,
                                                        @Header("Authorization") String authorization
     );
@@ -38,6 +42,7 @@ public interface LenddoScoreService {
     // GET "/ClientVerification/{clientId}"
     @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + "{clientId}")
     Call<JsonElement> getClientVerification(@Path("clientId") String clientId,
+                                            @Query("partner_script_id") String partner_script_id,
                                             @Header("Date") String date,
                                             @Header("Authorization") String authorization
     );

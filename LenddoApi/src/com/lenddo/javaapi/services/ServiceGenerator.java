@@ -32,13 +32,15 @@ public class ServiceGenerator {
 
     private static OkHttpClient httpClient;
 
+    public static Retrofit retrofit;
+
     private static Retrofit.Builder builder = new Retrofit.Builder()
                                                     .addConverterFactory(GsonConverterFactory.create());
     public static <S> S createService(Class<S> serviceClass, String baseUrl) {
         httpClient = new OkHttpClient.Builder()
                 .connectionSpecs(Collections.singletonList(spec))
                 .build();
-        Retrofit retrofit = builder.client(httpClient)
+        retrofit = builder.client(httpClient)
                             .baseUrl(baseUrl)
                             .build();
         return retrofit.create(serviceClass);

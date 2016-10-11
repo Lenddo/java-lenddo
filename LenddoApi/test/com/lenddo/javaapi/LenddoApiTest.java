@@ -14,6 +14,7 @@ public class LenddoApiTest {
 
     protected String apikey;
     protected String apisecret;
+    protected String ps_id;
     protected LenddoApi lenddoApi;
     protected LenddoScoreService lenddoservice;
 
@@ -21,7 +22,7 @@ public class LenddoApiTest {
     public void setUp() throws Exception {
         apikey = "apikey";
         apisecret = "apisecret";
-        lenddoApi = new LenddoApi(apikey, apisecret);
+        lenddoApi = new LenddoApi(apikey, apisecret, ps_id);
 
     }
 
