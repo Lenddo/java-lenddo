@@ -1,14 +1,9 @@
 package com.lenddo.javaapi;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.lenddo.javaapi.models.APIError;
 import com.lenddo.javaapi.models.ClientScore;
 import com.lenddo.javaapi.models.ClientVerification;
 import com.lenddo.javaapi.services.LenddoScoreService;
-import com.lenddo.javaapi.services.ServiceGenerator;
 import com.lenddo.javaapi.utils.ApiUtils;
-import com.lenddo.javaapi.utils.ErrorUtils;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;
 import retrofit2.Call;
@@ -16,7 +11,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 import java.io.IOException;
 
@@ -103,20 +97,18 @@ public class LenddoApi {
         return lenddoScoreService;
     }
 
-
-
     /**
      * Get client's score as a POJO asynchronously.
      *
-     * @param clientId  the client id number
+     * @param applicationtId  the application id number
      * @param callback  the response handler
      */
-    public void getClientScore(String clientId, final LenddoApiCallback callback) {
-        Log.i(TAG,"GET /ClientScore/"+clientId);
+    public void getApplicationScore(String applicationtId, final LenddoApiCallback callback) {
+        Log.i(TAG,"GET /ClientScore/"+applicationtId);
         String date = ApiUtils.getDate();
-        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTSCORE,clientId);
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTSCORE,applicationtId);
         Log.d(TAG, "Message body:\n"+requestbody.toString());
-        Call<ClientScore> call = getService().getClientScorePOJO(clientId,
+        Call<ClientScore> call = getService().getClientScorePOJO(applicationtId,
                 getPartnerScriptID(),
                 date,
                 ApiUtils.getAuthorization(getApikey(),
@@ -132,7 +124,7 @@ public class LenddoApi {
                         clientScore = new ClientScore();
                     }
 
-                    Log.i(TAG,"ClientScore: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientScore));
+                    Log.i(TAG,"ApplicationScore: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientScore));
                     callback.onResponse(clientScore);
                 } else {
 //                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);
@@ -152,21 +144,18 @@ public class LenddoApi {
         });
     }
 
-
-
-
     /**
      * Get client's verification as POJO asynchronously.
      *
-     * @param clientId  the client id number
+     * @param applicationId  the application id number
      * @param callback  the response handler
      */
-    public void getClientVerification(String clientId, final LenddoApiCallback callback) {
-        Log.i(TAG,"GET /ClientVerification/"+clientId);
+    public void getApplicationVerification(String applicationId, final LenddoApiCallback callback) {
+        Log.i(TAG,"GET /ClientVerification/"+applicationId);
         String date = ApiUtils.getDate();
-        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTVERIFICATION,clientId);
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTVERIFICATION,applicationId);
         Log.d(TAG, "Message body:\n"+requestbody.toString());
-        Call<ClientVerification> call = getService().getClientVerificationPOJO(clientId,
+        Call<ClientVerification> call = getService().getClientVerificationPOJO(applicationId,
                 getPartnerScriptID(),
                 date,
                 ApiUtils.getAuthorization(getApikey(),
@@ -181,7 +170,7 @@ public class LenddoApi {
                     if (clientVerification == null) {
                         clientVerification = new ClientVerification();
                     }
-                    Log.i(TAG,"ClientVerification: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientVerification));
+                    Log.i(TAG,"ApplicationVerification: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientVerification));
                     callback.onResponse(clientVerification);
                 } else {
 //                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);
@@ -201,9 +190,5 @@ public class LenddoApi {
         });
 
     }
-
-
-
-
 
 }

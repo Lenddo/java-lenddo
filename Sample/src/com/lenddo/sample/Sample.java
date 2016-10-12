@@ -1,6 +1,10 @@
 package com.lenddo.sample;
 
 import com.lenddo.javaapi.LenddoApi;
+import com.lenddo.javaapi.LenddoApiCallback;
+import com.lenddo.javaapi.models.ClientScore;
+import com.lenddo.javaapi.models.ClientVerification;
+import com.lenddo.javaapi.utils.ApiUtils;
 
 /**
  * Created by Joey Mar Antonio on 12/8/15.
@@ -20,7 +24,7 @@ public class Sample {
         LenddoApi lenddoapi = new LenddoApi(api_key, api_secret);
         lenddoapi.debugMode(false);
         System.out.println("==========================================================");
-        lenddoapi.getClientScore("YOUR_CLIENT_ID", new LenddoApiCallback<ClientScore>() {
+        lenddoapi.getClientScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientScore>() {
             @Override
             public void onResponse(ClientScore response) {
                 System.out.println("score: "+response.score);
@@ -39,7 +43,7 @@ public class Sample {
         });
 
 
-	lenddoapi.getClientVerification("YOUR_CLIENT_ID", new LenddoApiCallback<ClientVerification>() {
+	lenddoapi.getClientVerification("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientVerification>() {
               @Override
               public void onResponse(ClientVerification response) {
                   System.out.println("ClientVerification: "+ ApiUtils.convertObjectToJsonString(response));

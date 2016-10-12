@@ -1,11 +1,11 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v1.0.2
+##### v2.0.0
 
 ### 
 ###
-Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method.
+Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method.
 
 ### Usage
 1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v1.0.2/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
@@ -30,10 +30,10 @@ Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerificatio
         LenddoApi lenddoapi = new LenddoApi(api_key, api_secret, partner_script_id);
 ```
 
-3) To get a ClientScore, call the getClientScore(clientId, callback) method and provide the client_id and a LenddoApiCallback object as parameter.
+3) To get an ApplicationScore, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 ```java
-        lenddoapi.getClientScore("YOUR_CLIENT_ID", new LenddoApiCallback<ClientScore>() {
+        lenddoapi.getApplicationScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientScore>() {
             @Override
             public void onResponse(ClientScore response) {
                 System.out.println("score: "+response.score);
@@ -52,14 +52,14 @@ Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerificatio
         });
 ```
 
-4) To get a ClientVerification, call the getClientVerification(clientId, callback) method and provide the client_id and a LenddoApiCallback object as parameter.
+4) To get an ApplicationVerification, call the getApplicationVerification(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 
 ```java
-          lenddoapi.getClientVerification("YOUR_CLIENT_ID", new LenddoApiCallback<ClientVerification>() {
+          lenddoapi.getApplicationVerification("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientVerification>() {
               @Override
               public void onResponse(ClientVerification response) {
-                  System.out.println("ClientVerification: "+ ApiUtils.convertObjectToJsonString(response));
+                  System.out.println("ApplicationVerification: "+ ApiUtils.convertObjectToJsonString(response));
                   System.out.println("probes: "+ ApiUtils.convertObjectToJsonString(response.probes));
                   System.out.println("probe name: "+ response.probes.name);
                   System.out.println("probe firstname: "+ response.probes.name.get(0));
@@ -84,7 +84,7 @@ Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerificatio
 ```
 
 ### Release Version
-[**v1.0.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.2).  - (10/12/2016) security update
+[**v2.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.2).  - (10/12/2016) major update
 
 [**v1.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.1).  - (03/09/2016) security update
 
@@ -93,10 +93,13 @@ Java-Lenddo is a Java SDK for getting Lenddo's ClientScore and ClientVerificatio
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
-v1.0.2  -- (10/12/2016) security update
+v2.0.0  -- (10/12/2016) major update
 - Updated OkHTTP3 and Retrofit2 libraries
 - Removed legacy support and updated to latest api call
 - Calls are now asynchronous and returns POJO
+- ClientId is now ApplicationId
+- ClientScore is now ApplicationScore
+- ClientVerification is now ApplicationVerification
 
 v1.0.1  -- (03/09/2016) security update
 - Fixed SSLHandshakeException
