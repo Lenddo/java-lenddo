@@ -84,7 +84,7 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
 ```
 
 ### Release Version
-[**v2.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.2).  - (10/12/2016) major update
+[**v2.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.0.0).  - (10/12/2016) major update
 
 [**v1.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v1.0.1).  - (03/09/2016) security update
 
