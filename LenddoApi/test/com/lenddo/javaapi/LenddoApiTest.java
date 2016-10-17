@@ -15,14 +15,14 @@ public class LenddoApiTest {
     protected String apikey;
     protected String apisecret;
     protected String ps_id;
-    protected LenddoApi lenddoApi;
+    protected LenddoScoreApi lenddoScoreApi;
     protected LenddoScoreService lenddoservice;
 
     @Before
     public void setUp() throws Exception {
         apikey = "apikey";
         apisecret = "apisecret";
-        lenddoApi = new LenddoApi(apikey, apisecret, ps_id);
+        lenddoScoreApi = new LenddoScoreApi(apikey, apisecret, ps_id);
 
     }
 
@@ -38,12 +38,12 @@ public class LenddoApiTest {
 
     @Test
     public void testGetApikey() throws Exception {
-        assertEquals(lenddoApi.getApikey(), apikey);
+        assertEquals(lenddoScoreApi.getApikey(), apikey);
     }
 
     @Test
     public void testGetApisecret() throws Exception {
-        assertEquals(lenddoApi.getApisecret(), apisecret);
+        assertEquals(lenddoScoreApi.getApisecret(), apisecret);
     }
 
     @Test

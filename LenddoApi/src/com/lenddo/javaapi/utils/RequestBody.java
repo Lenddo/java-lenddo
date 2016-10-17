@@ -14,6 +14,8 @@ public class RequestBody {
 
     public static final int ENDPOINT_CLIENTSCORE = 0;
     public static final int ENDPOINT_CLIENTVERIFICATION = 1;
+    public static final int ENDPOINT_WL_PARTNERTOKEN = 2;
+    public static final int ENDPOINT_WL_COMMITPARTNERJOB = 3;
 
     private static final String TAG = RequestBody.class.getName();
 
@@ -68,6 +70,12 @@ public class RequestBody {
                 break;
             case ENDPOINT_CLIENTVERIFICATION:
                 this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + clientId;
+                break;
+            case ENDPOINT_WL_PARTNERTOKEN:
+                this.path = LenddoConfig.ENDPOINT_WL_PARTNERTOKEN;
+                break;
+            case ENDPOINT_WL_COMMITPARTNERJOB:
+                this.path = LenddoConfig.ENDPOINT_WL_COMMITPARTNERJOB;
                 break;
             default:
                 Log.e(TAG,"setPath(endpoint, clientId) Unknown endpoint value: " + endpoint);

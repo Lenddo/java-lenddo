@@ -4,7 +4,7 @@ import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.TlsVersion;
-
+import okio.Buffer;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
 
@@ -32,7 +32,7 @@ public class ServiceGenerator {
 
     private static OkHttpClient httpClient;
 
-    public static Retrofit retrofit;
+    private static Retrofit retrofit;
 
     private static Retrofit.Builder builder = new Retrofit.Builder()
                                                     .addConverterFactory(GsonConverterFactory.create());
@@ -46,5 +46,8 @@ public class ServiceGenerator {
         return retrofit.create(serviceClass);
     }
 
+    public static Retrofit getRetrofit() {
+        return retrofit;
+    }
 
 }

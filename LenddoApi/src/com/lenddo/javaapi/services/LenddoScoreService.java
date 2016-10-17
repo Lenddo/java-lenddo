@@ -5,15 +5,14 @@ import com.lenddo.javaapi.LenddoConfig;
 import com.lenddo.javaapi.models.ClientScore;
 import com.lenddo.javaapi.models.ClientVerification;
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 /**
  * Created by Joey Mar Antonio on 12/8/15.
  */
 public interface LenddoScoreService {
+    @Headers("User-Agent: java_sdk_v"+LenddoConfig.api_version)
+
     // GET "/ClientScore/{clientId}"
     @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + "{clientId}")
     Call<ClientScore> getClientScorePOJO(@Path("clientId") String clientId,
