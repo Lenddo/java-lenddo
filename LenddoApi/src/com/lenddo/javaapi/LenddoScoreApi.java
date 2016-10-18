@@ -17,14 +17,14 @@ import java.io.IOException;
 /**
  * Created by Joey Mar Antonio on 12/8/15.
  */
-public class LenddoApi {
+public class LenddoScoreApi {
 
     private String apikey;
     private String apisecret;
     private String partner_script_id;
     private LenddoScoreService lenddoScoreService;
     private Retrofit retrofit;
-    private static final String TAG = LenddoApi.class.getName();
+    private static final String TAG = LenddoScoreApi.class.getName();
 
     /**
      * Sets the debug mode for outputting log messages.
@@ -80,8 +80,8 @@ public class LenddoApi {
     /**
      * Class constructor specifying apiKey and apiSecret.
      */
-    public LenddoApi(String apiKey, String apiSecret, String partner_script_id) {
-        Log.i(TAG, "Initialize LenddoApi v" + LenddoConfig.api_version);
+    public LenddoScoreApi(String apiKey, String apiSecret, String partner_script_id) {
+        Log.i(TAG, "Initialize LenddoScoreApi v" + LenddoConfig.api_version);
         Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
         setApikey(apiKey);
         setApisecret(apiSecret);
