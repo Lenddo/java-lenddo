@@ -10,14 +10,15 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
 ### Usage
 1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v2.1.0/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
 
-2) Initialize the LenddoApi object by supplying the provided api\_key, api\_secret and partner\_script_id Strings.
+2) Initialize the LenddoScoreApi object by supplying the provided api\_key, api\_secret and partner\_script_id Strings.
 
 ```java
         // Required imports
-        import com.lenddo.javaapi.LenddoApi;
+        import com.lenddo.javaapi.LenddoScoreApi;
         import com.lenddo.javaapi.LenddoApiCallback;
         import com.lenddo.javaapi.models.ClientScore;
         import com.lenddo.javaapi.models.ClientVerification;
+        import com.lenddo.javaapi.utils.ApiUtils;
 
         ...
 
@@ -26,8 +27,8 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
         String api_secret = "YOUR API SECRET";
         String partner_script_id = "YOUR PARTNER SCRIPT ID";
         
-        // Initialize the LenddoApi object
-        LenddoApi lenddoapi = new LenddoApi(api_key, api_secret, partner_script_id);
+        // Initialize the LenddoScoreApi object
+        LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id);
 ```
 
 3) To get an ApplicationScore, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
@@ -36,6 +37,7 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
         lenddoapi.getApplicationScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientScore>() {
             @Override
             public void onResponse(ClientScore response) {
+                System.out.println("ApplicationScore: "+ ApiUtils.convertObjectToJsonString(response));
                 System.out.println("score: "+response.score);
                 System.out.println("flags: "+response.flags);
             }
@@ -81,6 +83,82 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
 
 ```java
           String jsonstring = ApiUtils.convertObjectToJsonString(response);
+```
+
+### WhiteLabel Client Api
+The WhiteLabelApi will allow you to utilize Lenddo services without any Lenddo branding. This method of implementation is the most complex but allows you to fully customize your users' experience. WhiteLabel client api is also included in jar file, you just need to download and import the java jar file, as stated at the above instructions.
+The Lenddo WhiteLabel client api provides two primary functions, sending a network token, and sending an application, but first we need to initialize some key components to get started.
+
+* Initialization
+```java
+     // Required imports
+        import com.lenddo.javaapi.WhiteLabelApi;
+        import com.lenddo.javaapi.LenddoApiCallback;
+        import com.lenddo.javaapi.models.PartnerToken;
+        import com.lenddo.javaapi.models.CommitPartnerJob;
+        import com.lenddo.javaapi.utils.ApiUtils;
+        
+     // Provide your credentials here
+        String api_key = "YOUR API KEY";
+        String api_secret = "YOUR API SECRET";
+        String partner_script_id = "YOUR PARTNER SCRIPT ID";
+        
+     // Initialize the WhiteLabelApi object
+        WhiteLabelApi whiteLabelApi = new WhiteLabelApi(api_key, api_secret, partner_script_id);
+```
+
+1) PartnerToken call which will allow you to send social network oauth tokens to Lenddo. These tokens will be used in the second step to provide scoring services for your client. This call returns a profile_id which you will be required to save so that you can send it to use for the second call.
+
+```java
+        WhitelabelRequestBody.WLPartnerTokenRqBody.token_data td = new WhitelabelRequestBody.WLPartnerTokenRqBody.token_data();
+        td.key = "YOUR_TOKEN";
+
+        String provider = WhiteLabelApi.PROVIDER_FACEBOOK;
+        whiteLabelApi.postPartnerToken("YOUR_APPLICATION_ID", provider, td, new LenddoApiCallback<PartnerToken>() {
+            @Override
+            public void onResponse(PartnerToken response) {
+                System.out.println("PartnerToken: " + ApiUtils.convertObjectToJsonString(response));
+                System.out.println("profile_id: " +  ApiUtils.convertObjectToJsonString(response.profile_id));
+                // get the profile ids from the response and use postCommitPartnerJob() to send the profile ids.
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: " + t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: " + errormessage);
+            }
+        });
+```
+
+2) CommitPartnerJob service call creates a job for scoring based on the a one time use id (known as the APPLICATION_ID), a list of profile_ids which you gathered from the first service call, and finally a partner_script_id which dictates how Lenddo will inform you of the results.
+
+```java
+
+        JsonArray profile_ids = new JsonArray();
+        profile_ids.add("the resulting partner id from callback of postPartnerToken()");
+        Verification verification = new Verification();
+    
+        whiteLabelApi.postCommitPartnerJob("YOUR_APPLICATION_ID", profile_ids, verification, new LenddoApiCallback<CommitPartnerJob>() {
+            @Override
+            public void onResponse(CommitPartnerJob response) {
+                System.out.println("CommitPartnerJob:"+ ApiUtils.convertObjectToJsonString(response));
+            }
+    
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+    
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+
 ```
 
 ### Release Version
