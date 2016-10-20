@@ -82,7 +82,9 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
 5) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
 
 ```java
+          // Convert Object to Json String and filter out null values
           String jsonstring = ApiUtils.convertObjectToJsonString(response);
+          // Convert Object to Json String and filter out null values
           String jsonstring = ApiUtils.convertObjectToJsonStringNoNulls(response);
 ```
 
