@@ -2,8 +2,6 @@ package com.lenddo.javaapi.models;
 
 import com.google.gson.JsonArray;
 
-import java.util.ArrayList;
-
 /**
  * Created by Joey Mar Antonio on 10/13/16.
  */

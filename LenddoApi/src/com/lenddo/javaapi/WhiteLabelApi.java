@@ -16,7 +16,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Joey Mar Antonio on 10/13/2016.
@@ -142,7 +141,7 @@ public class WhiteLabelApi {
                         partnerToken = new PartnerToken();
                     }
 
-                    Log.i(TAG,"CommitPartnerJob: Async RAW Response => " + ApiUtils.convertObjectToJsonString(partnerToken));
+                    Log.i(TAG,"postPartnerToken: Async RAW Response => " + ApiUtils.convertObjectToJsonString(partnerToken));
                     callback.onResponse(partnerToken);
                 } else {
                     try {
@@ -176,7 +175,11 @@ public class WhiteLabelApi {
         body.client_id = applicationtId;
         body.partner_script_id = getPartnerScriptID();
         body.profile_ids = profile_ids;
-        body.verification_data = verification;
+        if (verification!=null) {
+            body.verification_data = verification;
+        } else {
+            body.verification_data = null;
+        }
 
         RequestBody requestbody = new RequestBody(RequestBody.POST_METHOD,ApiUtils.md5(ApiUtils.convertObjectToJsonStringNoNulls(body)),date,RequestBody.ENDPOINT_WL_COMMITPARTNERJOB,applicationtId);
         System.out.println("\n"+ApiUtils.convertObjectToJsonStringNoNulls(body)+"\n\n");
@@ -195,7 +198,7 @@ public class WhiteLabelApi {
                         commitPartnerJob = new CommitPartnerJob();
                     }
 
-                    Log.i(TAG,"CommitPartnerJob: Async RAW Response => " + ApiUtils.convertObjectToJsonString(commitPartnerJob));
+                    Log.i(TAG,"CommitPartnerJob: Async RAW Response => " + ApiUtils.convertObjectToJsonStringNoNulls(commitPartnerJob));
                     callback.onResponse(commitPartnerJob);
                 } else {
                     try {

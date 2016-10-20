@@ -4,10 +4,10 @@ package com.lenddo.javaapi.models;
  * Created by Joey Mar Antonio on 10/15/16.
  */
 public class Verification {
-    public Name name;
+    public Name name = new Name();
     public String date_of_birth;
     public String employer;
-    public Phone phone;
+    public Phone phone = new Phone();
     public String university;
     public String email;
 
