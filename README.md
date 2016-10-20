@@ -1,14 +1,14 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.1.0
+##### v2.1.1
 
 ### 
 ###
 Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method.
 
 ### Usage
-1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v2.1.0/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
+1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v2.1.1/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
 
 2) Initialize the LenddoScoreApi object by supplying the provided api\_key, api\_secret and partner\_script_id Strings.
 
@@ -82,14 +82,18 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
 5) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
 
 ```java
+          // Convert Object to Json String and filter out null values
           String jsonstring = ApiUtils.convertObjectToJsonString(response);
+          // Convert Object to Json String and filter out null values
+          String jsonstring = ApiUtils.convertObjectToJsonStringNoNulls(response);
 ```
 
 ### WhiteLabel Client Api
-The WhiteLabelApi will allow you to utilize Lenddo services without any Lenddo branding. This method of implementation is the most complex but allows you to fully customize your users' experience. WhiteLabel client api is also included in jar file, you just need to download and import the java jar file, as stated at the above instructions.
+The WhiteLabelApi will allow you to utilize Lenddo services without any Lenddo branding. This method of implementation is the most complex but allows you to fully customize your users' experience. WhiteLabel client api is also included in a jar file, you just need to download and import the java jar file, as stated at the above instructions.
 The Lenddo WhiteLabel client api provides two primary functions, sending a network token, and sending an application, but first we need to initialize some key components to get started.
 
 * Initialization
+ 
 ```java
      // Required imports
         import com.lenddo.javaapi.WhiteLabelApi;
@@ -162,7 +166,7 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
-[**v2.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.0).  - (10/12/2016) WhiteLabel Client
+[**v2.1.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.0).  - (10/20/2016) WhiteLabel Client
 
 [**v2.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.0.0).  - (10/12/2016) major update
 
@@ -173,7 +177,12 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
-v2.0.0  -- (10/12/2016) major update
+v2.1.1  -- (10/20/2016) Whitelabel Client
+- Add Whitelabel client support
+- PartnerToken API Call
+- CommitPartnerJob API Call
+
+v2.0.0  -- (10/20/2016) major update
 - Updated OkHTTP3 and Retrofit2 libraries
 - Removed legacy support and updated to latest api call
 - Calls are now asynchronous and returns POJO
