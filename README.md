@@ -1,14 +1,14 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.1.1
+##### v2.1.2
 
 ### 
 ###
 Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method.
 
 ### Usage
-1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v2.1.1/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
+1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v2.1.2/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
 
 2) Initialize the LenddoScoreApi object by supplying the provided api\_key, api\_secret and partner\_script_id Strings.
 
@@ -114,59 +114,71 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 1) PartnerToken call which will allow you to send social network oauth tokens to Lenddo. These tokens will be used in the second step to provide scoring services for your client. This call returns a profile_id which you will be required to save so that you can send it to use for the second call.
 
 ```java
+    // TEST CODE FOR PARTNERTOKEN API
+    private static void samplePostPartnerToken(final Credentials credentials, final String applicationId, String provider) {
+        WhiteLabelApi whiteLabelApi = new WhiteLabelApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
         WhitelabelRequestBody.WLPartnerTokenRqBody.token_data td = new WhitelabelRequestBody.WLPartnerTokenRqBody.token_data();
-        td.key = "YOUR_TOKEN";
-
-        String provider = WhiteLabelApi.PROVIDER_FACEBOOK;
-        whiteLabelApi.postPartnerToken("YOUR_APPLICATION_ID", provider, td, new LenddoApiCallback<PartnerToken>() {
+        // add a token in the td.key and a secret in td.secret
+        td.key = "PUT YOUR TOKEN HERE";
+        td.secret = "PUT A SECRET HERE IF APPLICABLE";
+        whiteLabelApi.postPartnerToken(applicationId, provider, td, new LenddoApiCallback<PartnerToken>() {
             @Override
             public void onResponse(PartnerToken response) {
-                System.out.println("PartnerToken: " + ApiUtils.convertObjectToJsonString(response));
-                System.out.println("profile_id: " +  ApiUtils.convertObjectToJsonString(response.profile_id));
+                System.out.println("response="+ response.profile_id);
                 // get the profile ids from the response and use postCommitPartnerJob() to send the profile ids.
+                samplePostCommitPartnerJob(credentials, applicationId, response.profile_id);
             }
 
             @Override
             public void onFailure(Throwable t) {
-                System.out.println("Connection Failure: " + t.getMessage());
+                System.out.println("Connection Failure: "+t.getMessage());
             }
 
             @Override
             public void onError(String errormessage) {
-                System.out.println("Returned error: " + errormessage);
+                System.out.println("Returned error: "+errormessage);
             }
         });
+    }
 ```
 
 2) CommitPartnerJob service call creates a job for scoring based on the a one time use id (known as the APPLICATION_ID), a list of profile_ids which you gathered from the first service call, and finally a partner_script_id which dictates how Lenddo will inform you of the results.
 
 ```java
 
+// TEST CODE FOR COMMITPARTNERJOB API
+    private static void samplePostCommitPartnerJob(Credentials credentials, String applicationId, String profileId) {
+        WhiteLabelApi whiteLabelApi = new WhiteLabelApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
         JsonArray profile_ids = new JsonArray();
-        profile_ids.add("the resulting partner id from callback of postPartnerToken()");
+        profile_ids.add(profileId);
         Verification verification = new Verification();
-    
-        whiteLabelApi.postCommitPartnerJob("YOUR_APPLICATION_ID", profile_ids, verification, new LenddoApiCallback<CommitPartnerJob>() {
+        // at this point, you need to add details for the verification object. (name, employer, etc).
+        verification.name.first="firstname";
+        verification.name.last="lastname";
+        
+        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, new LenddoApiCallback() {
             @Override
-            public void onResponse(CommitPartnerJob response) {
-                System.out.println("CommitPartnerJob:"+ ApiUtils.convertObjectToJsonString(response));
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
             }
-    
+
             @Override
             public void onFailure(Throwable t) {
                 System.out.println("Connection Failure: "+t.getMessage());
             }
-    
+
             @Override
             public void onError(String errormessage) {
                 System.out.println("Returned error: "+errormessage);
             }
         });
-
+    }
 ```
 
 ### Release Version
-[**v2.1.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.0).  - (10/20/2016) WhiteLabel Client
+[**v2.1.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.2).  - (11/14/2016) WhiteLabel Client fix
+
+[**v2.1.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.1).  - (10/20/2016) WhiteLabel Client
 
 [**v2.0.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.0.0).  - (10/12/2016) major update
 
@@ -177,6 +189,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.1.2  -- (10/20/2016) Whitelabel Client
+- Fix bug in postCommitPartnerJob API Call resulting to forbidden error
+
 v2.1.1  -- (10/20/2016) Whitelabel Client
 - Add Whitelabel client support
 - PartnerToken API Call

@@ -61,16 +61,12 @@ public class ApiUtils {
     }
 
     public static String convertObjectToJsonString(Object object) {
-        if (gson == null) {
-            gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().disableHtmlEscaping().create();
-        }
+        gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().disableHtmlEscaping().create();
         return gson.toJson(object);
     }
 
     public static String convertObjectToJsonStringNoNulls(Object object) {
-        if (gson == null) {
-            gson = new GsonBuilder().serializeSpecialFloatingPointValues().disableHtmlEscaping().create();
-        }
+        gson = new GsonBuilder().serializeSpecialFloatingPointValues().disableHtmlEscaping().create();
         return gson.toJson(object);
     }
 
