@@ -27,14 +27,14 @@ public class Sample {
 
     public static void main(String[] args) {
         // Enter your credentials here:
-        String api_key = "57e9eaa7f7a579094b92dd09";
-        String api_secret = "x3Usd0zEZ46MgE9UQeXs0PaeULE66RJLjMEPkKucZROScv3R9DHIWwg2MceOLZLFJvWKBBfdL4j4E7kgbJdshg==";
-        String partner_script_id = "57cf81b4f7a5793778074d92";
+        String api_key = "YOUR LENDDO PROVIDED API KEY";
+        String api_secret = "YOUR LENDDO PROVIDED API SECRET";
+        String partner_script_id = "YOUR LENDDO PROVIDED PARTNER SCRIPT ID";
         Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
 
 
         // Test ApplicationScore API
-        String applicationId = "TEST0001C";
+        String applicationId = "YOUR APPLICATION ID";
         getApplicationScore(credentials, applicationId);
 
         // Test ApplicationVerification API
@@ -105,9 +105,8 @@ public class Sample {
         WhiteLabelApi whiteLabelApi = new WhiteLabelApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
         WhitelabelRequestBody.WLPartnerTokenRqBody.token_data td = new WhitelabelRequestBody.WLPartnerTokenRqBody.token_data();
         // add a token in the td.key and a secret in td.secret
-//        td.key = "EwAoA61DBAAUGCCXc8wU/zFu9QnLdZXy+YnElFkAAYfkwM7EBPT+UGCzFTxRHtDbnexIbq5Bt3+D8p6LTU8+YtYuXt3lG7TluzhPuFdVU+gD7MAuJEBIbrtvBrp9jbHF/ZU5J8mQIBcIkSo2qA9Y+UE7WgbAn0MzZcl7NECVxnEK97rzs9wKPD2RVKzckToFRSWLEX8XfutBBpu+KeqZrtwN2l0dnwoDT1ez5QTvd9FRqfb3Tur0mB6y+xooDl3u64AlZSCFTSqoTdfrr3yHjE+y7aQoDyyD6ddUcYt1Vh08Q4oku3PS2eXREWv+HuALfZtkrdemZgZOp6uTkbuXOjW+ydsB3pB8nGSAxBI598j10UyqL4L5jrJ79JQxVncDZgAACFQ3hFZq1brq+AELxTv5Pfj4KYG23t52xge3ZUfxRHPhgYaM2z4gT6hS32mRmb/WeIGeVuh6Wao8+q7RM5kcYyJQZlq+QykNJYN5wYEQIAn/3OpNwmSLRHUWOC7kERyyL/gzjtUcKU+CNg1i6yPNI7bMLGy2uBisDhy7myddFy5twxbI1e4zxWmNZbTqJoZbETlDCLylSiLAVeikUHbAsvHkn/uCKyRt1CWuJGajKgLNH6ef8s4GAkH/KO1vJ8xDfrtvjeB2x0OZm6I992RhPH7fOYvKaFwKlDeF4JkeRKW04otxLHWYh2ljYodS6ZeJ40K4EFkF44luxGkX3hWcuErTYk9iamACivbSW9mY9dboeTKcZPMcTXlCNyOPztMB1stnyzHgXbW4/IO93RYf+V3LPHq1DDMlbtGs/SF3rwaCnWIdklLtPKbfsWlUmDsJfPV5pH5hEj022c8lq1Ww4CIpyK1Q6lt+osfYzgm5ukm+AWPo9lNcK9lRRq7wrxtsRWMK8LI8E2jSSEdtWnXTlsvQkMbwAbFdFErzLNMuZWeprC1o8zM539FKldXRlo/4V9SWW1AzZhnI+WT8426wZ+CnsA4bwAgB4m7vCmzYXMdq1q7/g4jGata0M06c6FIvuN70MToriK4IE+1JUzRFA/9kFrDtIlUxLdaHeA55ix55wwYfAg==";
-        td.key = "EwAoA61DBAAUGCCXc8wU/zFu9QnLdZXy+YnElFkAATR9RO6HF/ADDEIJf+icU/1VryERnEacLY1WRhAnjqyDbkUngLgIdmCkvZotCGZ6finMotVzh/lOSrZsbYKLHncz+e2hXqsn/fPZ46ZrxinihBT9JRlbHgwLLGgXOCUW9Zz/2X/aEIZr2K+WUJor7Iq141hMdH5BhxHSEeXoWWOO2SN/H+NrhjjuulSr84StEEtnv5NtskXUJZ3XaOacdMJwaEXvdnzPRB3m2C5nzgr0fvZQmDcVKr/pC3+HCIpTw1uAP7wICC4EljGfRDPM/L44lzqs36AduRJ8tgS8HEnfZ8n6m0aK0zCkL0VtGvUVHRgbW2BEj4ETiYoc5zicl0ADZgAACN9XJ2pSgM4K+AFQDD19Ri9tjmZiDrc90J/qDGBrvXlxzrM2oiIPKW5NVqTG8/bZVjn7kaqevJUABxNAHL7FmoEOvLY6waIWVsIcTkd7hB9eT8DdkoZ0JJr5MQ89r915aKPdfnmGHGmGaCMQcMimB+QSA/WCtXsdeu7IcrQRl9FEKUezw2Uomjov8V0g8mZ9PDct8BCpXp/9z7Jd3X3MTI7sjvyp+3S9qJXo7F8fDf5blpuQQJFaldRwL/1BQlUSU8/giw+LlTFlc1HGUa9UZLVKR5xoj4wKqc/YZLg/LFbDQ31jKFhDJH7LbJxw+H1FMlgAzeYSQdNrn7rbpW6dhTzueR/vdgdAOItgalLN5N3s+9cTNGIXeiM+Pm8WaLvwVxvJmDnpFwyN8l0XxE/sQByMwTJuBcbAo99BiJmeBChGIc2GBwmRUMlOpNhnAORLMXUjeWQZMduuVr2wvLXCCBNBMc4YqdRMwHC+2BBdOhGLTktLlGDvqMAekt3gTOMYYO/rnX+O3mzzK2AH0gRM3h7KHxg9QXoUUls/m8lciNhfai2vrrpW463ClD7d1BMtYg0MiYUhoKYnQIG+pfkoyTLRRN8Ek8e7Kp7qe1EPejFI5QeIz/OabgC33JyRrGzvccA63p0Yjob+DNekyBEaH+HjkdFr2bCVNKa8GHvI4iD7m3gfAg==";
-//        td.secret = "";
+        td.key = "ACCESS TOKEN FROM YOUR CHOSEN PROVIDER";
+//        td.secret = "SECRET FROM YOUR CHOSEN PROVIDER (IF APPLICABLE)";
         whiteLabelApi.postPartnerToken(applicationId, provider, td, new LenddoApiCallback<PartnerToken>() {
             @Override
             public void onResponse(PartnerToken response) {
@@ -135,7 +134,8 @@ public class Sample {
         profile_ids.add(profileId);
         Verification verification = new Verification();
         // at this point, you need to add details for the verification object. (name, employer, etc).
-        verification.name.first="Jo";
+        verification.name.first="firstname";
+        verification.name.last="lastname";
 
         whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, new LenddoApiCallback() {
             @Override
