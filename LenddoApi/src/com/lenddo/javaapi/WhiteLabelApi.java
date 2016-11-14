@@ -178,11 +178,10 @@ public class WhiteLabelApi {
         if (verification!=null) {
             body.verification_data = verification;
         } else {
-            body.verification_data = null;
+            body.verification_data = new Verification();
         }
-
         RequestBody requestbody = new RequestBody(RequestBody.POST_METHOD,ApiUtils.md5(ApiUtils.convertObjectToJsonStringNoNulls(body)),date,RequestBody.ENDPOINT_WL_COMMITPARTNERJOB,applicationtId);
-        System.out.println("\n"+ApiUtils.convertObjectToJsonStringNoNulls(body)+"\n\n");
+        System.out.println("\nRequest = "+ApiUtils.convertObjectToJsonStringNoNulls(body)+"\n\n");
         Log.d(TAG, "Message body:\n"+requestbody.toString());
         System.out.println();
         Call<CommitPartnerJob> call = getService().postCommitPartnerJob(date,
