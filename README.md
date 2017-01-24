@@ -1,14 +1,14 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.1.2
+##### v2.1.3
 
 ### 
 ###
 Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method.
 
 ### Usage
-1) Download the [Jar file](https://github.com/Lenddo/java-lenddo/releases/download/v2.1.2/LenddoApi.zip) and add the LenddoApi.jar to your Java project as library.
+1) Download the latest [LenddoApi.zip](https://github.com/Lenddo/java-lenddo/releases) file, extract and add the LenddoApi.jar to your Java project as a library.
 
 2) Initialize the LenddoScoreApi object by supplying the provided api\_key, api\_secret and partner\_script_id Strings.
 
@@ -176,6 +176,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.1.3**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.3).  - (01/24/2017) Update Verification Endpoint
+
 [**v2.1.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.2).  - (11/14/2016) WhiteLabel Client fix
 
 [**v2.1.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.1).  - (10/20/2016) WhiteLabel Client
@@ -189,7 +191,12 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
-v2.1.2  -- (10/20/2016) Whitelabel Client
+v2.1.3  -- (01/24/2017) Update Verification Endpoint
+- Remove probes.facebook_verified
+- Remove verifications.facebook_verified
+- Add to root verified_by_facebook boolean flag
+
+v2.1.2  -- (11/14/2016) Whitelabel Client
 - Fix bug in postCommitPartnerJob API Call resulting to forbidden error
 
 v2.1.1  -- (10/20/2016) Whitelabel Client
