@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.1.3
+##### v2.1.4
 
 ### 
 ###
@@ -176,6 +176,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.1.4**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.4).  - (01/24/2017) Update Verification and Probe Endpoint
+
 [**v2.1.3**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.3).  - (01/24/2017) Update Verification Endpoint
 
 [**v2.1.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.2).  - (11/14/2016) WhiteLabel Client fix
@@ -191,6 +193,15 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.1.4  -- (01/24/2017) Update Verification and Probe Endpoint
+- Added application_created
+- Added verifications.phone
+- Added verifications.email
+- Added probes.phone
+- Added probes.email
+- Added duplicate_profiles
+- Renamed _id to application_id
+
 v2.1.3  -- (01/24/2017) Update Verification Endpoint
 - Remove probes.facebook_verified
 - Remove verifications.facebook_verified
