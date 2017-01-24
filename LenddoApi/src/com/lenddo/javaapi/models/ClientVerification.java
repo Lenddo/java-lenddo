@@ -17,18 +17,13 @@ public class ClientVerification {
     public String _id;
     public String partner_id;
     public Probes probes;
-// start: SDK-30 <j.antonio> Added verified_by_facebook boolean flag
     public Boolean verified_by_facebook;
-// end: SDK-30 <j.antonio>
 
     public static class Verifications {
 
         public Boolean name;
         public Boolean university;
         public Boolean employer;
-// start: SDK-30 <j.antonio> Remove verifications.facebook_verified
-//        public Boolean facebook_verified;
-// end: SDK-30 <j.antonio>
         public Boolean birthday;
         public Object top_employer;
 
@@ -39,9 +34,6 @@ public class ClientVerification {
         public List<String> name = new ArrayList<String>();
         public University university;
         public Employer employer;
-// SDK-30 <j.antonio> Remove probes.facebook_verified
-//        public List<String> facebook_verified = new ArrayList<String>();
-// end: SDK-30 <j.antonio>
         public List<Integer> birthday = new ArrayList<Integer>();
         public Object top_employer;
 
