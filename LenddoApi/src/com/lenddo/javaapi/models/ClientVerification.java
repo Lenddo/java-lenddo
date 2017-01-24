@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by Joey Mar Antonio on 12/8/15.
+ * Updated: 01/24/2017 <j.antonio> SDK-30
  */
 public class ClientVerification {
     public String partner_script_id;
@@ -16,14 +17,18 @@ public class ClientVerification {
     public String _id;
     public String partner_id;
     public Probes probes;
-
+// start: SDK-30 <j.antonio> Added verified_by_facebook boolean flag
+    public Boolean verified_by_facebook;
+// end: SDK-30 <j.antonio>
 
     public static class Verifications {
 
         public Boolean name;
         public Boolean university;
         public Boolean employer;
-        public Boolean facebook_verified;
+// start: SDK-30 <j.antonio> Remove verifications.facebook_verified
+//        public Boolean facebook_verified;
+// end: SDK-30 <j.antonio>
         public Boolean birthday;
         public Object top_employer;
 
@@ -34,7 +39,9 @@ public class ClientVerification {
         public List<String> name = new ArrayList<String>();
         public University university;
         public Employer employer;
-        public List<String> facebook_verified = new ArrayList<String>();
+// SDK-30 <j.antonio> Remove probes.facebook_verified
+//        public List<String> facebook_verified = new ArrayList<String>();
+// end: SDK-30 <j.antonio>
         public List<Integer> birthday = new ArrayList<Integer>();
         public Object top_employer;
 
