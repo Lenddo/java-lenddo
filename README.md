@@ -222,6 +222,7 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 v2.1.5  -- (03/10/2017) Add support for ApplicationScorecards endpoint
 - Updated gradle dependencies
 - Updated ClientScore response body
+- Updated Log output to be more discreet
 
 v2.1.4  -- (01/24/2017) Update Verification and Probe Endpoint
 - Added application_created

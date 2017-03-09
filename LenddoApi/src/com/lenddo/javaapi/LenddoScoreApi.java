@@ -105,7 +105,7 @@ public class LenddoScoreApi {
      * @param callback  the response handler
      */
     public void getApplicationScore(String applicationtId, final LenddoApiCallback callback) {
-        Log.i(TAG,"GET /ClientScore/"+applicationtId);
+        Log.d(TAG,"GET /ClientScore/"+applicationtId);
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTSCORE,applicationtId);
         Log.d(TAG, "Message body:\n"+requestbody.toString());
@@ -125,7 +125,7 @@ public class LenddoScoreApi {
                         clientScore = new ClientScore();
                     }
 
-                    Log.i(TAG,"ApplicationScore: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientScore));
+                    Log.d(TAG,"ApplicationScore: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientScore));
                     callback.onResponse(clientScore);
                 } else {
 //                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);
@@ -152,7 +152,7 @@ public class LenddoScoreApi {
      * @param callback  the response handler
      */
     public void getApplicationScorecards(String application_id, final LenddoApiCallback callback) {
-        Log.i(TAG,"GET /ApplicationScorecards/"+application_id);
+        Log.d(TAG,"GET /ApplicationScorecards/"+application_id);
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_APPLICATIONSCORECARDS,application_id);
         Log.d(TAG, "Message body:\n"+requestbody.toString());
@@ -172,7 +172,7 @@ public class LenddoScoreApi {
                         applicationScorecards = new ApplicationScorecards();
                     }
 
-                    Log.i(TAG,"ApplicationScorecards: Async RAW Response => " + ApiUtils.convertObjectToJsonString(applicationScorecards));
+                    Log.d(TAG,"ApplicationScorecards: Async RAW Response => " + ApiUtils.convertObjectToJsonString(applicationScorecards));
                     callback.onResponse(applicationScorecards);
                 } else {
 //                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);
@@ -199,7 +199,7 @@ public class LenddoScoreApi {
      * @param callback  the response handler
      */
     public void getApplicationVerification(String applicationId, final LenddoApiCallback callback) {
-        Log.i(TAG,"GET /ClientVerification/"+applicationId);
+        Log.d(TAG,"GET /ClientVerification/"+applicationId);
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_CLIENTVERIFICATION,applicationId);
         Log.d(TAG, "Message body:\n"+requestbody.toString());
@@ -218,7 +218,7 @@ public class LenddoScoreApi {
                     if (clientVerification == null) {
                         clientVerification = new ClientVerification();
                     }
-                    Log.i(TAG,"ApplicationVerification: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientVerification));
+                    Log.d(TAG,"ApplicationVerification: Async RAW Response => " + ApiUtils.convertObjectToJsonString(clientVerification));
                     callback.onResponse(clientVerification);
                 } else {
 //                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);

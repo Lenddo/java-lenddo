@@ -61,7 +61,7 @@ public class LenddoConfiguredSession {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.i("SHORT_URL", short_url);
+        Log.d("SHORT_URL", short_url);
         return short_url;
     }
 

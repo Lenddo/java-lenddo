@@ -117,7 +117,7 @@ public class WhiteLabelApi {
      * @param callback  the response handler
      */
     public void postPartnerToken(String applicationtId, String provider, WhitelabelRequestBody.WLPartnerTokenRqBody.token_data td, final LenddoApiCallback callback) {
-        Log.i(TAG,"POST /PartnerToken");
+        Log.d(TAG,"POST /PartnerToken");
         String date = ApiUtils.getDate();
         WhitelabelRequestBody.WLPartnerTokenRqBody body = new WhitelabelRequestBody.WLPartnerTokenRqBody();
         body.client_id = applicationtId;
@@ -141,7 +141,7 @@ public class WhiteLabelApi {
                         partnerToken = new PartnerToken();
                     }
 
-                    Log.i(TAG,"postPartnerToken: Async RAW Response => " + ApiUtils.convertObjectToJsonString(partnerToken));
+                    Log.d(TAG,"postPartnerToken: Async RAW Response => " + ApiUtils.convertObjectToJsonString(partnerToken));
                     callback.onResponse(partnerToken);
                 } else {
                     try {
@@ -169,7 +169,7 @@ public class WhiteLabelApi {
      * @param callback  the response handler
      */
     public void postCommitPartnerJob(String applicationtId, JsonArray profile_ids, Verification verification, final LenddoApiCallback callback) {
-        Log.i(TAG,"POST /CommitPartnerJob");
+        Log.d(TAG,"POST /CommitPartnerJob");
         String date = ApiUtils.getDate();
         WhitelabelRequestBody.WLCommitPartnerJobRqBody body = new WhitelabelRequestBody.WLCommitPartnerJobRqBody();
         body.client_id = applicationtId;
@@ -197,7 +197,7 @@ public class WhiteLabelApi {
                         commitPartnerJob = new CommitPartnerJob();
                     }
 
-                    Log.i(TAG,"CommitPartnerJob: Async RAW Response => " + ApiUtils.convertObjectToJsonStringNoNulls(commitPartnerJob));
+                    Log.d(TAG,"CommitPartnerJob: Async RAW Response => " + ApiUtils.convertObjectToJsonStringNoNulls(commitPartnerJob));
                     callback.onResponse(commitPartnerJob);
                 } else {
                     try {
