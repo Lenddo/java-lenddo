@@ -37,6 +37,9 @@ public class Sample {
         String applicationId = "YOUR APPLICATION ID";
         getApplicationScore(credentials, applicationId);
 
+        // Test ApplicationScorecards API
+        getApplicationScorecards(credentials, applicationId);
+
         // Test ApplicationVerification API
         getApplicationVerification(credentials, applicationId);
 
@@ -86,6 +89,31 @@ public class Sample {
                 System.out.println("probes: "+ ApiUtils.convertObjectToJsonString(response.probes));
                 System.out.println("probe name: "+ response.probes.name);
                 System.out.println("probe firstname: "+ response.probes.name.get(0));
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("Network Connection Failed: "+ throwable.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+        });
+    }
+
+    // TEST CODE FOR GETTING APPLICATION SCORE CARDS
+    private static void getApplicationScorecards(Credentials credentials, String applicationId) {
+        LenddoScoreApi lenddoapi = new LenddoScoreApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        // Set this to true to see debug messages during debug build.
+        lenddoapi.debugMode(true);
+
+        lenddoapi.getApplicationScorecards(applicationId, new LenddoApiCallback<ApplicationScorecards>() {
+            @Override
+            public void onResponse(ApplicationScorecards applicationScorecards) {
+                System.out.println("Resulting application score: "+ applicationScorecards.scorecards);
+                System.out.println("Resulting application flags: "+ applicationScorecards.flags);
             }
 
             @Override

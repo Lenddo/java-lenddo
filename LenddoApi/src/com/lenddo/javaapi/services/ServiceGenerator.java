@@ -4,10 +4,8 @@ import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.TlsVersion;
-import okio.Buffer;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
-
 
 import java.util.Collections;
 
@@ -49,5 +47,4 @@ public class ServiceGenerator {
     public static Retrofit getRetrofit() {
         return retrofit;
     }
-
 }

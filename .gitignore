@@ -1,7 +1,7 @@
 *.iml
-*.idea/
 *.ipr
 *.iws
 /out/
+.idea/workspace.xml
 .idea_modules/
 
