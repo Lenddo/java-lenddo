@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LenddoApi_jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/LenddoApi_jar</output-path>
+    <root id="archive" name="LenddoApi.jar">
+      <element id="module-output" name="LenddoApi" />
+      <element id="module-output" name="java-lenddo_main" />
+      <element id="extracted-dir" path="$USER_HOME$/gradle-3.4.1/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.2.0/41e67dba73c3347e4503761642c39d0e06ca1f2/retrofit-2.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/gradle-3.4.1/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.0/c4ba5371a29ac9b2ad6129b1d39ea38750043eff/gson-2.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/gradle-3.4.1/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.2.0/a09926806199499a20b2f5168779499abfa33342/converter-gson-2.2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/gradle-3.4.1/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/gradle-3.4.1/caches/modules-2/files-2.1/com.squareup.okio/okio/1.11.0/840897fcd7223a8143f1d9b6f69714e7be34fd50/okio-1.11.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
