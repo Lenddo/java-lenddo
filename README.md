@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.1.4
+##### v2.2.0
 
 ### 
 ###
@@ -31,7 +31,7 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
         LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id);
 ```
 
-3) To get an ApplicationScore, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
+3) To get an **ApplicationScore**, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 ```java
         lenddoapi.getApplicationScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientScore>() {
@@ -54,7 +54,31 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
         });
 ```
 
-4) To get an ApplicationVerification, call the getApplicationVerification(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
+4) To get **ApplicationScorecards**, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
+
+```java
+        lenddoapi.getApplicationScorecards("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationScorecards>() {
+            @Override
+            public void onResponse(ApplicationScorecards response) {
+                System.out.println("ApplicationScorecards: "+ ApiUtils.convertObjectToJsonString(response));
+                System.out.println("score: "+response.scorecards);
+                System.out.println("flags: "+response.flags);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+        });
+```
+
+
+5) To get an **ApplicationVerification**, call the getApplicationVerification(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 
 ```java
@@ -111,7 +135,7 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
         WhiteLabelApi whiteLabelApi = new WhiteLabelApi(api_key, api_secret, partner_script_id);
 ```
 
-1) PartnerToken call which will allow you to send social network oauth tokens to Lenddo. These tokens will be used in the second step to provide scoring services for your client. This call returns a profile_id which you will be required to save so that you can send it to use for the second call.
+1) **PartnerToken** call which will allow you to send social network oauth tokens to Lenddo. These tokens will be used in the second step to provide scoring services for your client. This call returns a profile_id which you will be required to save so that you can send it to use for the second call.
 
 ```java
     // TEST CODE FOR PARTNERTOKEN API
@@ -142,7 +166,7 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
     }
 ```
 
-2) CommitPartnerJob service call creates a job for scoring based on the a one time use id (known as the APPLICATION_ID), a list of profile_ids which you gathered from the first service call, and finally a partner_script_id which dictates how Lenddo will inform you of the results.
+2) **CommitPartnerJob** service call creates a job for scoring based on the a one time use id (known as the APPLICATION_ID), a list of profile_ids which you gathered from the first service call, and finally a partner_script_id which dictates how Lenddo will inform you of the results.
 
 ```java
 
@@ -176,6 +200,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.2.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.2.0).  - (03/10/2017) Add support for ApplicationScorecards endpoint
+
 [**v2.1.4**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.4).  - (01/24/2017) Update Verification and Probe Endpoint
 
 [**v2.1.3**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.3).  - (01/24/2017) Update Verification Endpoint
@@ -193,6 +219,11 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.2.0  -- (03/10/2017) Add support for ApplicationScorecards endpoint
+- Updated gradle dependencies
+- Updated ClientScore response body
+- Updated Log output to be more discreet
+
 v2.1.4  -- (01/24/2017) Update Verification and Probe Endpoint
 - Added application_created
 - Added verifications.phone
