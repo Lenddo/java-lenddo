@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.1.5
+##### v2.2.0
 
 ### 
 ###
@@ -200,7 +200,7 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
-[**v2.1.5**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.5).  - (03/10/2017) Add support for ApplicationScorecards endpoint
+[**v2.2.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.2.0).  - (03/10/2017) Add support for ApplicationScorecards endpoint
 
 [**v2.1.4**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.4).  - (01/24/2017) Update Verification and Probe Endpoint
 
@@ -219,7 +219,7 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
-v2.1.5  -- (03/10/2017) Add support for ApplicationScorecards endpoint
+v2.2.0  -- (03/10/2017) Add support for ApplicationScorecards endpoint
 - Updated gradle dependencies
 - Updated ClientScore response body
 - Updated Log output to be more discreet
