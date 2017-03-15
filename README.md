@@ -209,7 +209,7 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
-[**v2.2.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.3.0).  - (03/17/2017) Dynamic Score API hostname
+[**v2.3.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.3.0).  - (03/17/2017) Dynamic Score API hostname
 
 [**v2.2.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.2.0).  - (03/10/2017) Add support for ApplicationScorecards endpoint
 
