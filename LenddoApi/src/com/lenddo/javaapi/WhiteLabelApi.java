@@ -102,6 +102,22 @@ public class WhiteLabelApi {
         setService(retrofit.create(WhitelabelService.class));
     }
 
+    /**
+     * Class constructor specifying apiKey, apiSecret, partner_script_id and base_url.
+     */
+    public WhiteLabelApi(String apiKey, String apiSecret, String partner_script_id, String base_url) {
+        Log.i(TAG, "Initialize WhiteLabelApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        setPartnerScriptID(partner_script_id);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        setService(retrofit.create(WhitelabelService.class));
+    }
+
     public WhitelabelService getService() {
         return whitelabelService;
     }

@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.2.0
+##### v2.3.0
 
 ### 
 ###
@@ -30,6 +30,15 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
         // Initialize the LenddoScoreApi object
         LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id);
 ```
+
+The LenddoScoreApi object can use a different hostname by supplying the hostname in the Constructor.
+
+```java
+        // Initialize the LenddoScoreApi object with a different hostname
+        String hostname = "https://scoreservice-va.lenddo.com"; // sample regional hostname
+        LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id, hostname);
+```
+
 
 3) To get an **ApplicationScore**, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
@@ -200,6 +209,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.2.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.3.0).  - (03/17/2017) Dynamic Score API hostname
+
 [**v2.2.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.2.0).  - (03/10/2017) Add support for ApplicationScorecards endpoint
 
 [**v2.1.4**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.1.4).  - (01/24/2017) Update Verification and Probe Endpoint
@@ -219,6 +230,10 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.3.0  -- (03/15/2017) Dynamic Score API hostname
+- Support API call to different hostname
+
+
 v2.2.0  -- (03/10/2017) Add support for ApplicationScorecards endpoint
 - Updated gradle dependencies
 - Updated ClientScore response body
