@@ -5,7 +5,7 @@ package com.lenddo.javaapi;
  */
 public class LenddoConfig {
 
-    public static final String api_version = "2.2.0";
+    public static final String api_version = "2.3.0";
     public static final String score_base_url = "https://scoreservice.lenddo.com";
     public static final String whitelabel_base_url = "https://networkservice.lenddo.com";
     public static final String onboarding_base_url = "https://authorize.lenddo.com";

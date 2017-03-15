@@ -94,6 +94,22 @@ public class LenddoScoreApi {
         setService(retrofit.create(LenddoScoreService.class));
     }
 
+    /**
+     * Class constructor specifying apiKey and apiSecret and base_url.
+     */
+    public LenddoScoreApi(String apiKey, String apiSecret, String partner_script_id, String base_url) {
+        Log.i(TAG, "Initialize LenddoScoreApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        setPartnerSCriptID(partner_script_id);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        setService(retrofit.create(LenddoScoreService.class));
+    }
+
     public LenddoScoreService getService() {
         return lenddoScoreService;
     }

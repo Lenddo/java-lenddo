@@ -34,6 +34,19 @@ public class LenddoConfiguredSession {
         service = retrofit.create(LenddoOnboardingService.class);
     }
 
+    public LenddoConfiguredSession(String partnerScriptId, String clientId, VerificationData verificationData, String base_url) {
+        this.partnerScriptId = partnerScriptId;
+        this.clientId = clientId;
+        this.verificationData = verificationData;
+        initRequestBody(partnerScriptId,clientId);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        service = retrofit.create(LenddoOnboardingService.class);
+    }
+
     private void initRequestBody(String ps_id, String c_id) {
         this.requestBody = new RequestBody();
         this.requestBody.ps_id = ps_id;
