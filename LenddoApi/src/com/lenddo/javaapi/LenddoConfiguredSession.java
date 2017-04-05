@@ -16,16 +16,16 @@ import java.io.IOException;
 public class LenddoConfiguredSession {
 
     private String partnerScriptId;
-    private String clientId;
+    private String applicationId;
     private VerificationData verificationData;
     private RequestBody requestBody;
     private LenddoOnboardingService service;
 
-    public LenddoConfiguredSession(String partnerScriptId, String clientId, VerificationData verificationData) {
+    public LenddoConfiguredSession(String partnerScriptId, String applicationId, VerificationData verificationData) {
         this.partnerScriptId = partnerScriptId;
-        this.clientId = clientId;
+        this.applicationId = applicationId;
         this.verificationData = verificationData;
-        initRequestBody(partnerScriptId,clientId);
+        initRequestBody(partnerScriptId,applicationId);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(LenddoConfig.onboarding_base_url)
@@ -34,11 +34,11 @@ public class LenddoConfiguredSession {
         service = retrofit.create(LenddoOnboardingService.class);
     }
 
-    public LenddoConfiguredSession(String partnerScriptId, String clientId, VerificationData verificationData, String base_url) {
+    public LenddoConfiguredSession(String partnerScriptId, String applicationId, VerificationData verificationData, String base_url) {
         this.partnerScriptId = partnerScriptId;
-        this.clientId = clientId;
+        this.applicationId = applicationId;
         this.verificationData = verificationData;
-        initRequestBody(partnerScriptId,clientId);
+        initRequestBody(partnerScriptId,applicationId);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)
@@ -58,8 +58,13 @@ public class LenddoConfiguredSession {
         return partnerScriptId;
     }
 
+    @Deprecated
     public String getClientId() {
-        return clientId;
+        return getApplicationId();
+    }
+
+    public String getApplicationId() {
+        return applicationId;
     }
 
     public VerificationData getVerificationData() {

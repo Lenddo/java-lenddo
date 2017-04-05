@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by Joey Mar Antonio on 12/8/15.
@@ -26,7 +27,7 @@ public class ApiUtils {
     public static String getDate() {
         // Tue Dec 08 11:00:00 GMT 2015
         Calendar c = new GregorianCalendar();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz YYYY");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz YYYY", Locale.US);
         String nowDate = dateFormat.format(c.getTime());
         Log.d(TAG, "Date: " + nowDate);
         return nowDate;

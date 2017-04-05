@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.3.0
+##### v2.4.0
 
 ### 
 ###
@@ -209,6 +209,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.4.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.4.0).  - (04/05/2017) Fix Date Header issue with Locale
+
 [**v2.3.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.3.0).  - (03/17/2017) Dynamic Score API hostname
 
 [**v2.2.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.2.0).  - (03/10/2017) Add support for ApplicationScorecards endpoint
@@ -230,6 +232,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.4.0  -- (03/15/2017) Fix Date Header issue with Locale
+- Force US Locale with Date header creation
+
 v2.3.0  -- (03/15/2017) Dynamic Score API hostname
 - Support API call to different hostname
 
