@@ -5,7 +5,7 @@
 
 ### 
 ###
-Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method.
+Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method. [Click here](UIDemo.jar) for demo
 
 ### Usage
 1) Download the latest [LenddoApi.zip](https://github.com/Lenddo/java-lenddo/releases) file, extract and add the LenddoApi.jar to your Java project as a library.
