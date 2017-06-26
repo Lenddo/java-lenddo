@@ -1,5 +1,6 @@
 package com.lenddo.javaapi;
 
+import com.lenddo.javaapi.models.ApplicationFeatures;
 import com.lenddo.javaapi.models.ApplicationScorecards;
 import com.lenddo.javaapi.models.ClientScore;
 import com.lenddo.javaapi.models.ClientVerification;
@@ -249,6 +250,53 @@ public class LenddoScoreApi {
 
             @Override
             public void onFailure(Call<ClientVerification> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+
+    }
+
+    /**
+     * Get Application Score Features as POJO asynchronously.
+     *
+     * @param applicationId  the application id number
+     * @param callback  the response handler
+     */
+    public void getApplicationFeatures(String applicationId, final LenddoApiCallback callback) {
+        Log.d(TAG,"GET /ApplicationFeatures/"+applicationId);
+        String date = ApiUtils.getDate();
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_APPLICATIONFEATURES,applicationId);
+        Log.d(TAG, "Message body:\n"+requestbody.toString());
+        Call<ApplicationFeatures> call = getService().getApplicationFeaturesPOJO(applicationId,
+                getPartnerScriptID(),
+                date,
+                ApiUtils.getAuthorization(getApikey(),
+                        getApisecret(),
+                        requestbody.toString()));
+
+        call.enqueue(new Callback<ApplicationFeatures>() {
+            @Override
+            public void onResponse(Call<ApplicationFeatures> call, Response<ApplicationFeatures> response) {
+                if (response.isSuccessful()) {
+                    ApplicationFeatures applicationFeatures = response.body();
+                    if (applicationFeatures == null) {
+                        applicationFeatures = new ApplicationFeatures();
+                    }
+                    Log.d(TAG,"ApplicationFeatures: Async RAW Response => " + ApiUtils.convertObjectToJsonString(applicationFeatures));
+                    callback.onResponse(applicationFeatures);
+                } else {
+//                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);
+//                    callback.onError(error.message());
+                    try {
+                        callback.onError(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApplicationFeatures> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

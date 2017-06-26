@@ -17,6 +17,7 @@ public class RequestBody {
     public static final int ENDPOINT_WL_PARTNERTOKEN = 2;
     public static final int ENDPOINT_WL_COMMITPARTNERJOB = 3;
     public static final int ENDPOINT_APPLICATIONSCORECARDS = 4;
+    public static final int ENDPOINT_APPLICATIONFEATURES = 5;
 
     private static final String TAG = RequestBody.class.getName();
 
@@ -24,11 +25,11 @@ public class RequestBody {
     private String body;
     private String date;
     private String path;
-    private String clientId;
+    private String applicationId;
     private String request;
 
-    public RequestBody(int method, String body, String date, int endpoint, String clientID) {
-        request = setMethodString(method)+"\n"+setBody(body)+"\n"+setDate(date)+"\n"+setPath(endpoint,clientID);
+    public RequestBody(int method, String body, String date, int endpoint, String applicationID) {
+        request = setMethodString(method)+"\n"+setBody(body)+"\n"+setDate(date)+"\n"+setPath(endpoint,applicationID);
     }
 
     @Override
@@ -63,14 +64,14 @@ public class RequestBody {
         return date;
     }
 
-    private String setPath(int endpoint, String clientId) {
-        this.clientId = clientId;
+    private String setPath(int endpoint, String applicationId) {
+        this.applicationId = applicationId;
         switch (endpoint) {
             case ENDPOINT_CLIENTSCORE:
-                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + clientId;
+                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + applicationId;
                 break;
             case ENDPOINT_CLIENTVERIFICATION:
-                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + clientId;
+                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + applicationId;
                 break;
             case ENDPOINT_WL_PARTNERTOKEN:
                 this.path = LenddoConfig.ENDPOINT_WL_PARTNERTOKEN;
@@ -79,10 +80,13 @@ public class RequestBody {
                 this.path = LenddoConfig.ENDPOINT_WL_COMMITPARTNERJOB;
                 break;
             case ENDPOINT_APPLICATIONSCORECARDS:
-                this.path = LenddoConfig.ENDPOINT_SCORE_APPLICATIONSCORECARDS + clientId;
+                this.path = LenddoConfig.ENDPOINT_SCORE_APPLICATIONSCORECARDS + applicationId;
+                break;
+            case ENDPOINT_APPLICATIONFEATURES:
+                this.path = LenddoConfig.ENDPOINT_SCORE_APPLICATIONFEATURES + applicationId;
                 break;
             default:
-                Log.e(TAG,"setPath(endpoint, clientId) Unknown endpoint value: " + endpoint);
+                Log.e(TAG,"setPath(endpoint, applicationId) Unknown endpoint value: " + endpoint);
                 path = "";
                 break;
         }
@@ -109,8 +113,8 @@ public class RequestBody {
         return request;
     }
 
-    public String getClientId() {
-        return clientId;
+    public String getApplicationId() {
+        return applicationId;
     }
 
 }
