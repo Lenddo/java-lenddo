@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.4.0
+##### v2.5.0
 
 ### 
 ###
@@ -112,7 +112,29 @@ The LenddoScoreApi object can use a different hostname by supplying the hostname
           });
 ```
 
-5) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
+6) To get the **ApplicationFeatures**, call the getApplicationFeatures(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
+
+
+```java
+          lenddoapi.getApplicationFeatures("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationFeatures>() {
+              @Override
+              public void onResponse(ApplicationFeatures response) {
+                  System.out.println("ApplicationFeatures: "+ ApiUtils.convertObjectToJsonString(response));
+              }
+
+              @Override
+              public void onFailure(Throwable t) {
+                  System.out.println("Connection Failure: "+t.getMessage());
+              }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+          });
+```
+
+7) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
 
 ```java
           // Convert Object to Json String and filter out null values
@@ -209,6 +231,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.5.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.5.0).  - (06/26/2017) Add support for ApplicationFeatures endpoint
+
 [**v2.4.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.4.0).  - (04/05/2017) Fix Date Header issue with Locale
 
 [**v2.3.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.3.0).  - (03/17/2017) Dynamic Score API hostname
@@ -232,12 +256,14 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.5.0  -- (06/26/2017) Add support for ApplicationFeatures endpoint
+- Added ApplicationFeatures endpoint support
+
 v2.4.0  -- (03/15/2017) Fix Date Header issue with Locale
 - Force US Locale with Date header creation
 
 v2.3.0  -- (03/15/2017) Dynamic Score API hostname
 - Support API call to different hostname
-
 
 v2.2.0  -- (03/10/2017) Add support for ApplicationScorecards endpoint
 - Updated gradle dependencies
