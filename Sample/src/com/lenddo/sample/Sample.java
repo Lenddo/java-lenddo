@@ -1,8 +1,10 @@
 package com.lenddo.sample;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.lenddo.javaapi.LenddoApiCallback;
 import com.lenddo.javaapi.LenddoScoreApi;
+import com.lenddo.javaapi.NetworkApi;
 import com.lenddo.javaapi.WhiteLabelApi;
 import com.lenddo.javaapi.models.*;
 import com.lenddo.javaapi.utils.ApiUtils;
@@ -166,6 +168,28 @@ public class Sample {
         verification.name.last="lastname";
 
         whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    // TEST CODE FOR SEND EXTRA PARTNER DATA
+    private static void samplePostExtraPartnerData(Credentials credentials, String applicationId, JsonObject extraData) {
+        NetworkApi networkApi = new NetworkApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        NetworkApi.debugMode(true);
+        networkApi.postExtraApplicationData(applicationId, extraData, new LenddoApiCallback() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));

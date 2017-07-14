@@ -13,6 +13,6 @@ public class ApplicationFeatures {
     public String partner_script_id;
     public Integer created;
     public Integer application_created;
-    public List<Object> feature_values = new ArrayList<>();
+    public List<Object> feature_values = new ArrayList<Object>();
 
 }

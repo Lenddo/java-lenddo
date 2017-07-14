@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.5.0
+##### v2.6.0
 
 ### 
 ###
@@ -134,7 +134,34 @@ The LenddoScoreApi object can use a different hostname by supplying the hostname
           });
 ```
 
-7) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
+7) To post **ExtraApplicationData**, call the postExtraApplicationData(applicationId, extraData, callback) method and provide the application_id, extraData as a JsonObject and a LenddoApiCallback object as parameter. Your partnerscript must enable the feature for sending extra data.
+
+
+```java
+    // TEST CODE FOR SEND EXTRA PARTNER DATA
+    private static void samplePostExtraPartnerData(Credentials credentials, String applicationId, JsonObject extraData) {
+        NetworkApi networkApi = new NetworkApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        NetworkApi.debugMode(true);
+        networkApi.postExtraApplicationData(applicationId, extraData, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+```
+
+8) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
 
 ```java
           // Convert Object to Json String and filter out null values
@@ -231,6 +258,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.6.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.6.0).  - (07/14/2017) Add support for ExtraApplicationData endpoint
+
 [**v2.5.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.5.0).  - (06/26/2017) Add support for ApplicationFeatures endpoint
 
 [**v2.4.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.4.0).  - (04/05/2017) Fix Date Header issue with Locale
@@ -256,6 +285,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.6.0  -- (07/14/2017) Add support for ExtraApplicationData endpoint
+- Added ExtraApplicationData endpoint support
+
 v2.5.0  -- (06/26/2017) Add support for ApplicationFeatures endpoint
 - Added ApplicationFeatures endpoint support
 
