@@ -80,7 +80,9 @@ public class ApiUtils {
                 sb.append( String.format( "%02x", array[i]));
             }
             return sb.toString();
-        } catch ( NoSuchAlgorithmException | UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        } catch (UnsupportedEncodingException e) {
             return null;
         }
 
