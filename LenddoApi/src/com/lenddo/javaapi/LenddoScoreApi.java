@@ -1,9 +1,6 @@
 package com.lenddo.javaapi;
 
-import com.lenddo.javaapi.models.ApplicationFeatures;
-import com.lenddo.javaapi.models.ApplicationScorecards;
-import com.lenddo.javaapi.models.ClientScore;
-import com.lenddo.javaapi.models.ClientVerification;
+import com.lenddo.javaapi.models.*;
 import com.lenddo.javaapi.services.LenddoScoreService;
 import com.lenddo.javaapi.utils.ApiUtils;
 import com.lenddo.javaapi.utils.Log;
@@ -297,6 +294,53 @@ public class LenddoScoreApi {
 
             @Override
             public void onFailure(Call<ApplicationFeatures> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+
+    }
+
+    /**
+     * Get Application Multiple Scores as POJO asynchronously.
+     *
+     * @param applicationId  the application id number
+     * @param callback  the response handler
+     */
+    public void getApplicationMultipleScores(String applicationId, final LenddoApiCallback callback) {
+        Log.d(TAG,"GET /ApplicationMultipleScores/"+applicationId);
+        String date = ApiUtils.getDate();
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_APPLICATIONMULTIPLESCORES,applicationId);
+        Log.d(TAG, "Message body:\n"+requestbody.toString());
+        Call<ApplicationMultipleScores> call = getService().getApplicationMultipleScoresPOJO(applicationId,
+                getPartnerScriptID(),
+                date,
+                ApiUtils.getAuthorization(getApikey(),
+                        getApisecret(),
+                        requestbody.toString()));
+
+        call.enqueue(new Callback<ApplicationMultipleScores>() {
+            @Override
+            public void onResponse(Call<ApplicationMultipleScores> call, Response<ApplicationMultipleScores> response) {
+                if (response.isSuccessful()) {
+                    ApplicationMultipleScores applicationMultipleScores = response.body();
+                    if (applicationMultipleScores == null) {
+                        applicationMultipleScores = new ApplicationMultipleScores();
+                    }
+                    Log.d(TAG,"ApplicationFeatures: Async RAW Response => " + ApiUtils.convertObjectToJsonString(applicationMultipleScores));
+                    callback.onResponse(applicationMultipleScores);
+                } else {
+//                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);
+//                    callback.onError(error.message());
+                    try {
+                        callback.onError(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApplicationMultipleScores> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

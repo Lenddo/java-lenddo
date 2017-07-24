@@ -3,10 +3,17 @@ package com.lenddo.javaapi.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.lenddo.javaapi.models.ApplicationMultipleScores;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
@@ -66,6 +73,11 @@ public class ApiUtils {
         return gson.toJson(object);
     }
 
+    public static String convertObjectToPrettyJsonString(Object object) {
+        gson = new GsonBuilder().serializeSpecialFloatingPointValues().serializeNulls().disableHtmlEscaping().create();
+        return prettyJSON(gson.toJson(object));
+    }
+
     public static String convertObjectToJsonStringNoNulls(Object object) {
         gson = new GsonBuilder().serializeSpecialFloatingPointValues().disableHtmlEscaping().create();
         return gson.toJson(object);
@@ -88,4 +100,24 @@ public class ApiUtils {
 
     }
 
+    public static String prettyJSON(String json) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(json);
+        return gson.toJson(je);
+    }
+
+    public static String convertObjectToXML(Object object) {
+        StringWriter sw = new StringWriter();
+        String xmlString = new String();
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.marshal(object, sw);
+            xmlString = sw.toString();
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+        return xmlString;
+    }
 }

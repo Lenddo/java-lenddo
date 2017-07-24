@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.6.0
+##### v2.7.0
 
 ### 
 ###
@@ -161,7 +161,29 @@ The LenddoScoreApi object can use a different hostname by supplying the hostname
     }
 ```
 
-8) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
+8) To get the **ApplicationMultipleScores**, call the getApplicationMultipleScores(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
+
+
+```java
+          lenddoapi.getApplicationMultipleScores("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationMultipleScores>() {
+              @Override
+              public void onResponse(ApplicationMultipleScores response) {
+                  System.out.println("ApplicationMultipleScores: "+ ApiUtils.convertObjectToJsonString(response));
+              }
+
+              @Override
+              public void onFailure(Throwable t) {
+                  System.out.println("Connection Failure: "+t.getMessage());
+              }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+          });
+```
+
+9) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
 
 ```java
           // Convert Object to Json String and filter out null values
@@ -258,6 +280,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.7.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.7.0).  - (07/24/2017) Add support for ApplicationMultipleScores endpoint
+
 [**v2.6.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.6.0).  - (07/14/2017) Add support for ExtraApplicationData endpoint
 
 [**v2.5.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.5.0).  - (06/26/2017) Add support for ApplicationFeatures endpoint
@@ -285,6 +309,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.7.0  -- (07/24/2017) Add support for ApplicationMultipleScores endpoint
+- Added ApplicationMultipleScores endpoint support
+
 v2.6.0  -- (07/14/2017) Add support for ExtraApplicationData endpoint
 - Added ExtraApplicationData endpoint support
 

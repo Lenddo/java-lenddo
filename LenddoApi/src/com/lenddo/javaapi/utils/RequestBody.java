@@ -19,6 +19,7 @@ public class RequestBody {
     public static final int ENDPOINT_APPLICATIONSCORECARDS = 4;
     public static final int ENDPOINT_APPLICATIONFEATURES = 5;
     public static final int ENDPOINT_EXTRAAPPLICATIONDATA = 6;
+    public static final int ENDPOINT_APPLICATIONMULTIPLESCORES = 7;
 
     private static final String TAG = RequestBody.class.getName();
 
@@ -88,6 +89,9 @@ public class RequestBody {
                 break;
             case ENDPOINT_EXTRAAPPLICATIONDATA:
                 this.path = LenddoConfig.ENDPOINT_NETWORK_SENDEXTRADATA;
+                break;
+            case ENDPOINT_APPLICATIONMULTIPLESCORES:
+                this.path = LenddoConfig.ENDPOINT_SCORE_APPLICATIONMULTIPLESCORES + applicationId;
                 break;
             default:
                 Log.e(TAG,"setPath(endpoint, applicationId) Unknown endpoint value: " + endpoint);

@@ -1,11 +1,13 @@
 package com.lenddo.javaapi.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Joey Mar Antonio on 3/9/17.
  */
+@XmlRootElement
 public class ApplicationScorecards {
 
     public String application_id;
