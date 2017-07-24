@@ -1,11 +1,13 @@
 package com.lenddo.javaapi.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 /**
  * Created by Joey Mar Antonio on 12/8/15.
  * Updated: 01/24/2017 <j.antonio> SDK-30
  */
+@XmlRootElement
 public class ClientVerification {
     public String partner_script_id;
     public Integer updated;

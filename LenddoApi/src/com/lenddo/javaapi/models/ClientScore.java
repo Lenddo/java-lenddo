@@ -1,11 +1,13 @@
 package com.lenddo.javaapi.models;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Joey Mar Antonio on 12/8/15.
  */
+@XmlRootElement
 public class ClientScore {
 
     public Integer score;

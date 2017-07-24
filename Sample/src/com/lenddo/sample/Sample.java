@@ -77,6 +77,32 @@ public class Sample {
         });
     }
 
+    // TEST CODE FOR GETTING APPLICATION MULTIPLE SCORE
+    private static void getApplicationMultipleScores(Credentials credentials, String applicationId) {
+        LenddoScoreApi lenddoapi = new LenddoScoreApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        // Set this to true to see debug messages during debug build.
+        lenddoapi.debugMode(true);
+
+        lenddoapi.getApplicationMultipleScores(applicationId, new LenddoApiCallback<ApplicationMultipleScores>() {
+            @Override
+            public void onResponse(ApplicationMultipleScores applicationMultipleScores) {
+                System.out.println("Result:\n"+ ApiUtils.convertObjectToPrettyJsonString(applicationMultipleScores));
+                System.out.println("XML Result:\n"+ ApiUtils.convertObjectToXML(applicationMultipleScores));
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("Network Connection Failed: "+ throwable.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+        });
+    }
+
+
     // TEST CODE FOR GETTING APPLICATION VERIFICATION
     private static void getApplicationVerification(Credentials credentials, String applicationId) {
         LenddoScoreApi lenddoapi = new LenddoScoreApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);

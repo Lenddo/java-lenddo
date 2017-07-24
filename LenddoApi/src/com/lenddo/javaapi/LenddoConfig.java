@@ -5,7 +5,7 @@ package com.lenddo.javaapi;
  */
 public class LenddoConfig {
 
-    public static final String api_version = "2.6.0";
+    public static final String api_version = "2.7.0";
     public static final String score_base_url = "https://scoreservice.lenddo.com";
     public static final String whitelabel_base_url = "https://networkservice.lenddo.com";
     public static final String onboarding_base_url = "https://authorize.lenddo.com";
@@ -13,6 +13,7 @@ public class LenddoConfig {
     public static final String ENDPOINT_SCORE_CLIENTSCORE = "/ClientScore/";
     public static final String ENDPOINT_SCORE_CLIENTVERIFICATION = "/ClientVerification/";
     public static final String ENDPOINT_SCORE_APPLICATIONFEATURES = "/ApplicationFeatures/";
+    public static final String ENDPOINT_SCORE_APPLICATIONMULTIPLESCORES = "/ApplicationMultipleScores/";
     public static final String ENDPOINT_WL_PARTNERTOKEN = "/PartnerToken";
     public static final String ENDPOINT_WL_COMMITPARTNERJOB = "/CommitPartnerJob";
     public static final String ENDPOINT_NETWORK_SENDEXTRADATA = "/ExtraApplicationData";
