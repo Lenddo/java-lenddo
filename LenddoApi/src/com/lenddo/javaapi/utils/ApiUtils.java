@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by Joey Mar Antonio on 12/8/15.
@@ -34,7 +35,8 @@ public class ApiUtils {
     public static String getDate() {
         // Tue Dec 08 11:00:00 GMT 2015
         Calendar c = new GregorianCalendar();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz YYYY", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM YYYY HH:mm:ss Z", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         String nowDate = dateFormat.format(c.getTime());
         Log.d(TAG, "Date: " + nowDate);
         return nowDate;

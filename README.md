@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.7.0
+##### v2.8.0
 
 ### 
 ###
@@ -13,77 +13,77 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
 2) Initialize the LenddoScoreApi object by supplying the provided api\_key, api\_secret and partner\_script_id Strings.
 
 ```java
-        // Required imports
-        import com.lenddo.javaapi.LenddoScoreApi;
-        import com.lenddo.javaapi.LenddoApiCallback;
-        import com.lenddo.javaapi.models.ClientScore;
-        import com.lenddo.javaapi.models.ClientVerification;
-        import com.lenddo.javaapi.utils.ApiUtils;
+// Required imports
+import com.lenddo.javaapi.LenddoScoreApi;
+import com.lenddo.javaapi.LenddoApiCallback;
+import com.lenddo.javaapi.models.ClientScore;
+import com.lenddo.javaapi.models.ClientVerification;
+import com.lenddo.javaapi.utils.ApiUtils;
 
-        ...
+...
 
-        // Provide your credentials here
-        String api_key = "YOUR API KEY";
-        String api_secret = "YOUR API SECRET";
-        String partner_script_id = "YOUR PARTNER SCRIPT ID";
+    // Provide your credentials here
+    String api_key = "YOUR API KEY";
+    String api_secret = "YOUR API SECRET";
+    String partner_script_id = "YOUR PARTNER SCRIPT ID";
         
-        // Initialize the LenddoScoreApi object
-        LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id);
+    // Initialize the LenddoScoreApi object
+    LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id);
 ```
 
 The LenddoScoreApi object can use a different hostname by supplying the hostname in the Constructor.
 
 ```java
-        // Initialize the LenddoScoreApi object with a different hostname
-        String hostname = "https://scoreservice-va.lenddo.com"; // sample regional hostname
-        LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id, hostname);
+    // Initialize the LenddoScoreApi object with a different hostname
+    String hostname = "https://scoreservice-va.lenddo.com"; // sample regional hostname
+    LenddoScoreApi lenddoapi = new LenddoScoreApi(api_key, api_secret, partner_script_id, hostname);
 ```
 
 
 3) To get an **ApplicationScore**, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 ```java
-        lenddoapi.getApplicationScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientScore>() {
-            @Override
-            public void onResponse(ClientScore response) {
-                System.out.println("ApplicationScore: "+ ApiUtils.convertObjectToJsonString(response));
-                System.out.println("score: "+response.score);
-                System.out.println("flags: "+response.flags);
-            }
+    lenddoapi.getApplicationScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientScore>() {
+        @Override
+        public void onResponse(ClientScore response) {
+            System.out.println("ApplicationScore: "+ ApiUtils.convertObjectToJsonString(response));
+            System.out.println("score: "+response.score);
+            System.out.println("flags: "+response.flags);
+        }
 
-            @Override
-            public void onFailure(Throwable t) {
-                System.out.println("Connection Failure: "+t.getMessage());
-            }
+        @Override
+        public void onFailure(Throwable t) {
+            System.out.println("Connection Failure: "+t.getMessage());
+        }
 
-            @Override
-            public void onError(String errormessage) {
-                System.out.println("Returned error: "+ errormessage);
-            }
-        });
+        @Override
+        public void onError(String errormessage) {
+            System.out.println("Returned error: "+ errormessage);
+        }
+    });
 ```
 
 4) To get **ApplicationScorecards**, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 ```java
-        lenddoapi.getApplicationScorecards("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationScorecards>() {
-            @Override
-            public void onResponse(ApplicationScorecards response) {
-                System.out.println("ApplicationScorecards: "+ ApiUtils.convertObjectToJsonString(response));
-                System.out.println("score: "+response.scorecards);
-                System.out.println("flags: "+response.flags);
-            }
+    lenddoapi.getApplicationScorecards("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationScorecards>() {
+        @Override
+        public void onResponse(ApplicationScorecards response) {
+            System.out.println("ApplicationScorecards: "+ ApiUtils.convertObjectToJsonString(response));
+            System.out.println("score: "+response.scorecards);
+            System.out.println("flags: "+response.flags);
+        }
 
-            @Override
-            public void onFailure(Throwable t) {
-                System.out.println("Connection Failure: "+t.getMessage());
-            }
+        @Override
+        public void onFailure(Throwable t) {
+            System.out.println("Connection Failure: "+t.getMessage());
+        }
 
-            @Override
-            public void onError(String errormessage) {
-                System.out.println("Returned error: "+ errormessage);
-            }
-        });
+        @Override
+        public void onError(String errormessage) {
+            System.out.println("Returned error: "+ errormessage);
+        }
+    });
 ```
 
 
@@ -91,47 +91,47 @@ The LenddoScoreApi object can use a different hostname by supplying the hostname
 
 
 ```java
-          lenddoapi.getApplicationVerification("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientVerification>() {
-              @Override
-              public void onResponse(ClientVerification response) {
-                  System.out.println("ApplicationVerification: "+ ApiUtils.convertObjectToJsonString(response));
-                  System.out.println("probes: "+ ApiUtils.convertObjectToJsonString(response.probes));
-                  System.out.println("probe name: "+ response.probes.name);
-                  System.out.println("probe firstname: "+ response.probes.name.get(0));
-              }
+    lenddoapi.getApplicationVerification("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientVerification>() {
+        @Override
+        public void onResponse(ClientVerification response) {
+            System.out.println("ApplicationVerification: "+ ApiUtils.convertObjectToJsonString(response));
+            System.out.println("probes: "+ ApiUtils.convertObjectToJsonString(response.probes));
+            System.out.println("probe name: "+ response.probes.name);
+            System.out.println("probe firstname: "+ response.probes.name.get(0));
+        }
 
-              @Override
-              public void onFailure(Throwable t) {
-                  System.out.println("Connection Failure: "+t.getMessage());
-              }
+        @Override
+        public void onFailure(Throwable t) {
+            System.out.println("Connection Failure: "+t.getMessage());
+        }
 
-            @Override
-            public void onError(String errormessage) {
-                System.out.println("Returned error: "+ errormessage);
-            }
-          });
+        @Override
+        public void onError(String errormessage) {
+            System.out.println("Returned error: "+ errormessage);
+        }
+    });
 ```
 
 6) To get the **ApplicationFeatures**, call the getApplicationFeatures(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 
 ```java
-          lenddoapi.getApplicationFeatures("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationFeatures>() {
-              @Override
-              public void onResponse(ApplicationFeatures response) {
-                  System.out.println("ApplicationFeatures: "+ ApiUtils.convertObjectToJsonString(response));
-              }
+    lenddoapi.getApplicationFeatures("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationFeatures>() {
+        @Override
+        public void onResponse(ApplicationFeatures response) {
+            System.out.println("ApplicationFeatures: "+ ApiUtils.convertObjectToJsonString(response));
+        }
 
-              @Override
-              public void onFailure(Throwable t) {
-                  System.out.println("Connection Failure: "+t.getMessage());
-              }
+        @Override
+        public void onFailure(Throwable t) {
+            System.out.println("Connection Failure: "+t.getMessage());
+        }
 
-            @Override
-            public void onError(String errormessage) {
-                System.out.println("Returned error: "+ errormessage);
-            }
-          });
+        @Override
+        public void onError(String errormessage) {
+            System.out.println("Returned error: "+ errormessage);
+        }
+    });
 ```
 
 7) To post **ExtraApplicationData**, call the postExtraApplicationData(applicationId, extraData, callback) method and provide the application_id, extraData as a JsonObject and a LenddoApiCallback object as parameter. Your partnerscript must enable the feature for sending extra data.
@@ -165,31 +165,88 @@ The LenddoScoreApi object can use a different hostname by supplying the hostname
 
 
 ```java
-          lenddoapi.getApplicationMultipleScores("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationMultipleScores>() {
-              @Override
-              public void onResponse(ApplicationMultipleScores response) {
-                  System.out.println("ApplicationMultipleScores: "+ ApiUtils.convertObjectToJsonString(response));
-              }
+    lenddoapi.getApplicationMultipleScores("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationMultipleScores>() {
+        @Override
+        public void onResponse(ApplicationMultipleScores response) {
+            System.out.println("ApplicationMultipleScores: "+ ApiUtils.convertObjectToJsonString(response));
+        }
 
-              @Override
-              public void onFailure(Throwable t) {
-                  System.out.println("Connection Failure: "+t.getMessage());
-              }
+        @Override
+        public void onFailure(Throwable t) {
+            System.out.println("Connection Failure: "+t.getMessage());
+        }
+
+        @Override
+        public void onError(String errormessage) {
+            System.out.println("Returned error: "+ errormessage);
+        }
+    });
+```
+
+9) To post **PriorityData**, create an AuthorizeApi object and call the postAuthorizeOnboardingPrioritydata(applicationId, body, callback) method and provide the application_id, body as a PriorityDataRequestBody and a LenddoApiCallback object as parameter.
+
+
+```java
+    // TEST CODE FOR POST AUTHORIZE ONBOARDING PRIORITYDATA
+    private static void samplePostAuthorizeOnboardingPriorityData(Credentials credentials, String applicationId, PriorityDataRequestBody body) {
+        AuthorizeApi authorizeApi = new AuthorizeApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        AuthorizeApi.debugMode(true);
+        if (body == null) {
+            body = new PriorityDataRequestBody();
+        }
+        authorizeApi.postAuthorizeOnboardingPrioritydata(applicationId, body, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
 
             @Override
             public void onError(String errormessage) {
-                System.out.println("Returned error: "+ errormessage);
+                System.out.println("Returned error: "+errormessage);
             }
-          });
+        });
+    }
 ```
 
-9) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
+Calling the above sample method:
 
 ```java
-          // Convert Object to Json String and filter out null values
-          String jsonstring = ApiUtils.convertObjectToJsonString(response);
-          // Convert Object to Json String and filter out null values
-          String jsonstring = ApiUtils.convertObjectToJsonStringNoNulls(response);
+    // Initializing your credentials.
+    String api_key = "YOUR_API_KEY";
+    String api_secret = "YOUR_API_SECRET";
+    String partner_script_id = "YOUR_PARNER_SCRIPT_ID";
+    String applicationId = "YOUR_UNIQUE_APPLICATION_ID";
+    Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
+    
+    // Creating a PriorityData Request Body
+    PriorityDataRequestBody body = new PriorityDataRequestBody();
+    body.application_id = applicationId;
+    body.partner_script_id = partner_script_id;
+    body.data.partner_data = new JsonObject();               // Store partner data here as a JsonObject
+    body.data.verification_data.name.first = "FIRSTNAME";    // First name field, optional
+    body.data.verification_data.name.middle = "MIDDLENAME";  // Middle name field, optional
+    body.data.verification_data.name.last = "LASTNAME";      // Last name field, optional
+    body.data.verification_data.employer = "EMPLOYER";       // Employer field. optional
+    body.data.verification_data.email = "EMAIL";             // Email field. optional
+    body.data.verification_data.university = "UNIVERSITY";   // University field. optional
+    // etc...
+
+    samplePostAuthorizeOnboardingPriorityData(credentials, applicationId, body);    
+```
+
+
+10) To convert the response object to a JSON String, call the ApiUtils.convertObjectToJsonString(object) method.
+
+```java
+    // Convert Object to Json String and filter out null values
+    String jsonstring = ApiUtils.convertObjectToJsonString(response);
+    // Convert Object to Json String and filter out null values
+    String jsonstring = ApiUtils.convertObjectToJsonStringNoNulls(response);
 ```
 
 ### WhiteLabel Client Api
@@ -280,6 +337,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.8.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.0).  - (08/17/2017) Add support for PriorityData endpoint
+
 [**v2.7.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.7.0).  - (07/24/2017) Add support for ApplicationMultipleScores endpoint
 
 [**v2.6.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.6.0).  - (07/14/2017) Add support for ExtraApplicationData endpoint
@@ -309,6 +368,12 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.8.0  -- (08/17/2017) Add support for PriorityData endpoint
+- Added PriorityData endpoint support
+- Fixed internal Date header generation
+- Updated Verification data model
+- Added API call to Authorize-v3 endpoint
+
 v2.7.0  -- (07/24/2017) Add support for ApplicationMultipleScores endpoint
 - Added ApplicationMultipleScores endpoint support
 

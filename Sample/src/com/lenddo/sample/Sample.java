@@ -51,6 +51,54 @@ public class Sample {
     }
 
 
+    // TEST CODE FOR GETTING AUTHORIZE HEALTHCHECK
+    private static void sampleGetAuthorizeHealtcheck(Credentials credentials, String applicationId) {
+        AuthorizeApi authorizeApi = new AuthorizeApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        // Set this to true to see debug messages during debug build.
+        authorizeApi.debugMode(true);
+
+        authorizeApi.getAuthorizeHealthcheck(applicationId, new LenddoApiCallback<JsonElement>() {
+            @Override
+            public void onResponse(JsonElement response) {
+                System.out.println("Resulting healthcheck: "+ response.toString());
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                System.out.println("Network Connection Failed: "+ throwable.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+ errormessage);
+            }
+        });
+    }
+
+    // TEST CODE FOR POST AUTHORIZE ONBOARDING PRIORITYDATA
+    private static void samplePostAuthorizeOnboardingPriorityData(Credentials credentials, String applicationId, PriorityDataRequestBody body) {
+        AuthorizeApi authorizeApi = new AuthorizeApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        AuthorizeApi.debugMode(true);
+        if (body == null) {
+            body = new PriorityDataRequestBody();
+        }
+        authorizeApi.postAuthorizeOnboardingPrioritydata(applicationId, body, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
 
     // TEST CODE FOR GETTING APPLICATION SCORE
     private static void getApplicationScore(Credentials credentials, String applicationId) {
