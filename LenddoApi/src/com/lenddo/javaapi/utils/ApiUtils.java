@@ -5,20 +5,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.lenddo.javaapi.models.ApplicationMultipleScores;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -35,7 +33,7 @@ public class ApiUtils {
     public static String getDate() {
         // Tue Dec 08 11:00:00 GMT 2015
         Calendar c = new GregorianCalendar();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM YYYY HH:mm:ss Z", Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
         String nowDate = dateFormat.format(c.getTime());
         Log.d(TAG, "Date: " + nowDate);
@@ -54,7 +52,7 @@ public class ApiUtils {
             Mac mac = Mac.getInstance("HmacSHA1");
             SecretKeySpec signingKey = new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA1");
             mac.init(signingKey);
-            hash = DatatypeConverter.printBase64Binary(mac.doFinal(message.getBytes("UTF-8")));
+            hash = Base64.getEncoder().encodeToString(mac.doFinal(message.getBytes("UTF-8")));
             Log.d(TAG, "hash: "+hash);
             mac.reset();
         } catch (NoSuchAlgorithmException e) {
@@ -89,9 +87,9 @@ public class ApiUtils {
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(input.getBytes( "UTF-8" ));
-            StringBuffer sb = new StringBuffer();
-            for (int i = 0; i < array.length; i++) {
-                sb.append( String.format( "%02x", array[i]));
+            StringBuilder sb = new StringBuilder();
+            for (byte anArray : array) {
+                sb.append(String.format("%02x", anArray));
             }
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
@@ -111,7 +109,7 @@ public class ApiUtils {
 
     public static String convertObjectToXML(Object object) {
         StringWriter sw = new StringWriter();
-        String xmlString = new String();
+        String xmlString = null;
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(object.getClass());
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -120,6 +118,10 @@ public class ApiUtils {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        return xmlString;
+        if (xmlString == null) {
+            return "";
+        } else {
+            return xmlString;
+        }
     }
 }

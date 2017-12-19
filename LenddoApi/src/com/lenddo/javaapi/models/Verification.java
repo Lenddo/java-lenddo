@@ -16,6 +16,7 @@ public class Verification {
     public List<Government_ids> government_ids = new ArrayList<Government_ids>();
     public String university;
     public String email;
+    public String work_email;
     public Address address = new Address();
 
     public static class Name {

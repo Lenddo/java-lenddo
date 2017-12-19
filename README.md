@@ -1,11 +1,11 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.8.0
+##### v2.8.1
 
 ### 
 ###
-Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method. [Click here](UIDemo.jar) for demo. Currently the Lenddo Java SDK only supports Java 7 and 8. Java 9 support to be added soon.
+Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method. [Click here](UIDemo.jar) for demo
 
 ### Usage
 1) Download the latest [LenddoApi.zip](https://github.com/Lenddo/java-lenddo/releases) file, extract and add the LenddoApi.jar to your Java project as a library.
@@ -337,6 +337,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.8.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.1).  - (12/19/2017) Fix bug with DataConverterType class
+
 [**v2.8.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.0).  - (08/17/2017) Add support for PriorityData endpoint
 
 [**v2.7.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.7.0).  - (07/24/2017) Add support for ApplicationMultipleScores endpoint
@@ -368,6 +370,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.8.1  -- (12/19/2017) Fix bug with DataConverterType class
+- Replaced DataConverterType class with Java.util.Base64
+
 v2.8.0  -- (08/17/2017) Add support for PriorityData endpoint
 - Added PriorityData endpoint support
 - Fixed internal Date header generation
