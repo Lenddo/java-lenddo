@@ -1,11 +1,9 @@
 package com.lenddo.javaapi;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lenddo.javaapi.models.*;
+import com.lenddo.javaapi.models.NetworkRequestBody;
 import com.lenddo.javaapi.services.NetworkService;
-import com.lenddo.javaapi.services.WhitelabelService;
 import com.lenddo.javaapi.utils.ApiUtils;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;

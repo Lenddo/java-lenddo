@@ -16,7 +16,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -52,7 +51,7 @@ public class ApiUtils {
             Mac mac = Mac.getInstance("HmacSHA1");
             SecretKeySpec signingKey = new SecretKeySpec(secret.getBytes("UTF-8"), "HmacSHA1");
             mac.init(signingKey);
-            hash = Base64.getEncoder().encodeToString(mac.doFinal(message.getBytes("UTF-8")));
+            hash = Base64.encodeBytes(mac.doFinal(message.getBytes("UTF-8")));
             Log.d(TAG, "hash: "+hash);
             mac.reset();
         } catch (NoSuchAlgorithmException e) {
