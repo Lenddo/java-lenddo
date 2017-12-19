@@ -136,9 +136,7 @@ public class NetworkApi {
         NetworkRequestBody.SendExtraDataRqBody body = new NetworkRequestBody.SendExtraDataRqBody();
         body.application_id = applicationId;
         body.partner_script_id = partner_script_id;
-        JsonObject application = new JsonObject();
-        application.addProperty("application", "JOEYMAR");
-        body.extra_data = application;
+        body.extra_data = extraData;
 
         RequestBody requestbody = new RequestBody(RequestBody.POST_METHOD,ApiUtils.md5(ApiUtils.convertObjectToJsonString(body)),
                 date,RequestBody.ENDPOINT_EXTRAAPPLICATIONDATA, applicationId);
