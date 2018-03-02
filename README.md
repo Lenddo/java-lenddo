@@ -63,6 +63,20 @@ The LenddoScoreApi object can use a different hostname by supplying the hostname
     });
 ```
 
+Here is a sample raw response:
+
+```javascript
+{
+	"score": 885,
+	"flags": ["FLAG_1_VALUE", "FLAG_2_VALUE"],
+	"client_id": null,
+	"partner_id": "YOUR_PARTNER_ID_VALUE_HERE",
+	"partner_script_id": "YOUR_PARTNER_SCRIPT_ID_VALUE_HERE",
+	"created": 1519872715,
+	"application_created": 1519872712
+}
+```
+
 4) To get **ApplicationScorecards**, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 ```java
