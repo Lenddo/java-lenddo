@@ -12,16 +12,16 @@ import retrofit2.http.*;
 public interface LenddoScoreService {
     @Headers("User-Agent: java_sdk_v"+LenddoConfig.api_version)
 
-    // GET "/ClientScore/{client_id}"
-    @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + "{client_id}")
-    Call<ClientScore> getClientScorePOJO(@Path("client_id") String client_id,
-                                         @Query("partner_script_id") String partner_script_id,
-                                         @Header("Date") String date,
-                                         @Header("Authorization") String authorization
+    // GET "/ApplicationScore/{client_id}"
+    @GET(LenddoConfig.ENDPOINT_SCORE_APPLICATIONSCORE + "{client_id}")
+    Call<ApplicationScore> getApplicationScorePOJO(@Path("client_id") String client_id,
+                                                   @Query("partner_script_id") String partner_script_id,
+                                                   @Header("Date") String date,
+                                                   @Header("Authorization") String authorization
     );
 
-    // GET "/ClientScore/{client_id}"
-    @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + "{client_id}")
+    // GET "/ApplicationScore/{client_id}"
+    @GET(LenddoConfig.ENDPOINT_SCORE_APPLICATIONSCORE + "{client_id}")
     Call<JsonElement> getClientScore(@Path("client_id") String client_id,
                                      @Query("partner_script_id") String partner_script_id,
                                      @Header("Date") String date,
@@ -45,16 +45,16 @@ public interface LenddoScoreService {
     );
 
 
-    // GET "/ClientVerification/{clientId}"
-    @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + "{clientId}")
-    Call<ClientVerification> getClientVerificationPOJO(@Path("clientId") String clientId,
-                                                       @Query("partner_script_id") String partner_script_id,
-                                                       @Header("Date") String date,
-                                                       @Header("Authorization") String authorization
+    // GET "/ApplicationVerification/{clientId}"
+    @GET(LenddoConfig.ENDPOINT_SCORE_APPLICATIONVERIFICATION + "{clientId}")
+    Call<ApplicationVerification> getApplicationVerificationPOJO(@Path("clientId") String clientId,
+                                                                 @Query("partner_script_id") String partner_script_id,
+                                                                 @Header("Date") String date,
+                                                                 @Header("Authorization") String authorization
     );
 
-    // GET "/ClientVerification/{clientId}"
-    @GET(LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + "{clientId}")
+    // GET "/ApplicationVerification/{clientId}"
+    @GET(LenddoConfig.ENDPOINT_SCORE_APPLICATIONVERIFICATION + "{clientId}")
     Call<JsonElement> getClientVerification(@Path("clientId") String clientId,
                                             @Query("partner_script_id") String partner_script_id,
                                             @Header("Date") String date,

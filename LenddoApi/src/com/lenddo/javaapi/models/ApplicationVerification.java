@@ -8,7 +8,7 @@ import java.util.List;
  * Updated: 01/24/2017 <j.antonio> SDK-30
  */
 @XmlRootElement
-public class ClientVerification {
+public class ApplicationVerification {
     public String partner_script_id;
     public Integer updated;
     public Integer application_created;
