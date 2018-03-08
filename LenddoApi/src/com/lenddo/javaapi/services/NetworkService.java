@@ -2,10 +2,6 @@ package com.lenddo.javaapi.services;
 
 import com.google.gson.JsonElement;
 import com.lenddo.javaapi.LenddoConfig;
-import com.lenddo.javaapi.models.ApplicationFeatures;
-import com.lenddo.javaapi.models.ApplicationScorecards;
-import com.lenddo.javaapi.models.ClientScore;
-import com.lenddo.javaapi.models.ClientVerification;
 import retrofit2.Call;
 import retrofit2.http.*;
 

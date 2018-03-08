@@ -12,8 +12,8 @@ public class RequestBody {
     public static final int PUT_METHOD = 2;
     public static final int DELETE_METHOD = 3;
 
-    public static final int ENDPOINT_CLIENTSCORE = 0;
-    public static final int ENDPOINT_CLIENTVERIFICATION = 1;
+    public static final int ENDPOINT_APPLICATIONSCORE = 0;
+    public static final int ENDPOINT_APPLICATIONVERIFICATION = 1;
     public static final int ENDPOINT_WL_PARTNERTOKEN = 2;
     public static final int ENDPOINT_WL_COMMITPARTNERJOB = 3;
     public static final int ENDPOINT_APPLICATIONSCORECARDS = 4;
@@ -71,11 +71,11 @@ public class RequestBody {
     private String setPath(int endpoint, String applicationId) {
         this.applicationId = applicationId;
         switch (endpoint) {
-            case ENDPOINT_CLIENTSCORE:
-                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTSCORE + applicationId;
+            case ENDPOINT_APPLICATIONSCORE:
+                this.path = LenddoConfig.ENDPOINT_SCORE_APPLICATIONSCORE + applicationId;
                 break;
-            case ENDPOINT_CLIENTVERIFICATION:
-                this.path = LenddoConfig.ENDPOINT_SCORE_CLIENTVERIFICATION + applicationId;
+            case ENDPOINT_APPLICATIONVERIFICATION:
+                this.path = LenddoConfig.ENDPOINT_SCORE_APPLICATIONVERIFICATION + applicationId;
                 break;
             case ENDPOINT_WL_PARTNERTOKEN:
                 this.path = LenddoConfig.ENDPOINT_WL_PARTNERTOKEN;

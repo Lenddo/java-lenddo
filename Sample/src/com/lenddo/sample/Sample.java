@@ -2,10 +2,7 @@ package com.lenddo.sample;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.lenddo.javaapi.LenddoApiCallback;
-import com.lenddo.javaapi.LenddoScoreApi;
-import com.lenddo.javaapi.NetworkApi;
-import com.lenddo.javaapi.WhiteLabelApi;
+import com.lenddo.javaapi.*;
 import com.lenddo.javaapi.models.*;
 import com.lenddo.javaapi.utils.ApiUtils;
 
@@ -106,11 +103,11 @@ public class Sample {
         // Set this to true to see debug messages during debug build.
         lenddoapi.debugMode(true);
 
-        lenddoapi.getApplicationScore(applicationId, new LenddoApiCallback<ClientScore>() {
+        lenddoapi.getApplicationScore(applicationId, new LenddoApiCallback<ApplicationScore>() {
             @Override
-            public void onResponse(ClientScore clientScore) {
-                System.out.println("Resulting application score: "+ clientScore.score);
-                System.out.println("Resulting application flags: "+ clientScore.flags);
+            public void onResponse(ApplicationScore applicationScore) {
+                System.out.println("Resulting application score: "+ applicationScore.score);
+                System.out.println("Resulting application flags: "+ applicationScore.flags);
             }
 
             @Override
@@ -157,9 +154,9 @@ public class Sample {
         // Set this to true to see debug messages during debug build.
         lenddoapi.debugMode(true);
 
-        lenddoapi.getApplicationVerification(applicationId, new LenddoApiCallback<ClientVerification>() {
+        lenddoapi.getApplicationVerification(applicationId, new LenddoApiCallback<ApplicationVerification>() {
             @Override
-            public void onResponse(ClientVerification response) {
+            public void onResponse(ApplicationVerification response) {
                 // Sample responses
                 System.out.println("ApplicationVerification: "+ ApiUtils.convertObjectToJsonString(response));
                 System.out.println("probes: "+ ApiUtils.convertObjectToJsonString(response.probes));

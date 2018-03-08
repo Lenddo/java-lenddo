@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.8.1
+##### v2.8.2
 
 ### 
 ###
@@ -16,8 +16,8 @@ Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationV
 // Required imports
 import com.lenddo.javaapi.LenddoScoreApi;
 import com.lenddo.javaapi.LenddoApiCallback;
-import com.lenddo.javaapi.models.ClientScore;
-import com.lenddo.javaapi.models.ClientVerification;
+import com.lenddo.javaapi.models.ApplicationScore;
+import com.lenddo.javaapi.models.ApplicationVerification;
 import com.lenddo.javaapi.utils.ApiUtils;
 
 ...
@@ -43,9 +43,9 @@ The LenddoScoreApi object can use a different hostname by supplying the hostname
 3) To get an **ApplicationScore**, call the getApplicationScore(applicationId, callback) method and provide the application_id and a LenddoApiCallback object as parameter.
 
 ```java
-    lenddoapi.getApplicationScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientScore>() {
+    lenddoapi.getApplicationScore("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationScore>() {
         @Override
-        public void onResponse(ClientScore response) {
+        public void onResponse(ApplicationScore response) {
             System.out.println("ApplicationScore: "+ ApiUtils.convertObjectToJsonString(response));
             System.out.println("score: "+response.score);
             System.out.println("flags: "+response.flags);
@@ -69,7 +69,7 @@ Here is a sample raw response:
 {
 	"score": 885,
 	"flags": ["FLAG_1_VALUE", "FLAG_2_VALUE"],
-	"client_id": null,
+	"application_id": "YOUR_APPLICATION_ID",
 	"partner_id": "YOUR_PARTNER_ID_VALUE_HERE",
 	"partner_script_id": "YOUR_PARTNER_SCRIPT_ID_VALUE_HERE",
 	"created": 1519872715,
@@ -105,9 +105,9 @@ Here is a sample raw response:
 
 
 ```java
-    lenddoapi.getApplicationVerification("YOUR_APPLICATION_ID", new LenddoApiCallback<ClientVerification>() {
+    lenddoapi.getApplicationVerification("YOUR_APPLICATION_ID", new LenddoApiCallback<ApplicationVerification>() {
         @Override
-        public void onResponse(ClientVerification response) {
+        public void onResponse(ApplicationVerification response) {
             System.out.println("ApplicationVerification: "+ ApiUtils.convertObjectToJsonString(response));
             System.out.println("probes: "+ ApiUtils.convertObjectToJsonString(response.probes));
             System.out.println("probe name: "+ response.probes.name);
@@ -351,6 +351,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.8.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.2).  - (03/08/2018) Update endpoints
+
 [**v2.8.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.1).  - (12/19/2017) Fix bug with DataConverterType class
 
 [**v2.8.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.0).  - (08/17/2017) Add support for PriorityData endpoint
@@ -384,6 +386,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.8.2  -- (03/08/2018) Update endpoints
+- update to ApplicationScore and ApplicationVerification endpoints
+
 v2.8.1  -- (12/19/2017) Fix bug with DataConverterType class
 - Replaced DataConverterType class with Java.util.Base64
 
