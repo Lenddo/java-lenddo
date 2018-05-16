@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.8.2
+##### v2.9.0
 
 ### 
 ###
@@ -263,6 +263,32 @@ Calling the above sample method:
     String jsonstring = ApiUtils.convertObjectToJsonStringNoNulls(response);
 ```
 
+11) To get the **MobileData**, call the getMobileData(applicationId, callback) method using the NetworkApi object and provide the partner_script_id, partner_id and a LenddoApiCallback object as parameter. See sample code below:
+
+
+```java
+    private static void sampleGetMobileData(String apiKey, String apiSecret, String psid, String partnerId) {
+        NetworkApi networkApi = new NetworkApi(apiKey, apiSecret);
+        networkApi.getMobileData(psid, partnerId, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println(String.valueOf(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println(errormessage);
+            }
+        });
+    }
+
+```
+
 ### WhiteLabel Client Api
 The WhiteLabelApi will allow you to utilize Lenddo services without any Lenddo branding. This method of implementation is the most complex but allows you to fully customize your users' experience. WhiteLabel client api is also included in a jar file, you just need to download and import the java jar file, as stated at the above instructions.
 The Lenddo WhiteLabel client api provides two primary functions, sending a network token, and sending an application, but first we need to initialize some key components to get started.
@@ -351,6 +377,8 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 ```
 
 ### Release Version
+[**v2.9.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.9.0).  - (05/16/2018) Add MobileData API call using Network Service
+
 [**v2.8.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.2).  - (03/08/2018) Update endpoints
 
 [**v2.8.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.1).  - (12/19/2017) Fix bug with DataConverterType class
@@ -386,6 +414,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.9.0  -- (05/16/2018) Add MobileData API call using Network Service
+- Added /MobileData Api call
+
 v2.8.2  -- (03/08/2018) Update endpoints
 - update to ApplicationScore and ApplicationVerification endpoints
 

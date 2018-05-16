@@ -85,6 +85,21 @@ public class NetworkApi {
     }
 
     /**
+     * Class constructor specifying apiKey, apiSecret.
+     */
+    public NetworkApi(String apiKey, String apiSecret) {
+        Log.i(TAG, "Initialize NetworkApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(LenddoConfig.whitelabel_base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        setService(retrofit.create(NetworkService.class));
+    }
+
+    /**
      * Class constructor specifying apiKey, apiSecret and partner_script_id.
      */
     public NetworkApi(String apiKey, String apiSecret, String partner_script_id) {
@@ -172,6 +187,57 @@ public class NetworkApi {
             @Override
             public void onFailure(Call<JsonElement> call, Throwable t) {
                 callback.onFailure(t);
+            }
+        });
+    }
+
+    /**
+     * GET MobileData asynchronously.
+     *
+     * @param partnerScriptId  the application id number is the client id
+     * @param partnerId  the partnerId provided by LenddoEFL
+     * @param callback  the response handler
+     */
+    public void getMobileData(String partnerScriptId, String partnerId, final LenddoApiCallback callback) {
+        Log.d(TAG,"GET /MobileData");
+        String date = ApiUtils.getDate();
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD,null,date,RequestBody.ENDPOINT_NETWORK_MOBILEDATA,null);
+        Log.d(TAG, "Message body:\n"+requestbody.toString());
+        Call<JsonElement> call = getService().getMobileData(partnerScriptId,
+                partnerId,
+                date,
+                ApiUtils.getAuthorization(getApikey(),
+                        getApisecret(),
+                        requestbody.toString()));
+
+        call.enqueue(new Callback<JsonElement>() {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                if (response.isSuccessful()) {
+                    JsonElement mobileData = response.body();
+                    if (mobileData == null) {
+                        mobileData = new JsonObject();
+                    }
+
+                    Log.d(TAG,"MobileData: Async RAW Response => " + ApiUtils.convertObjectToJsonString(mobileData));
+                    callback.onResponse(mobileData);
+                } else {
+//                    APIError error = ErrorUtils.parseError(response, ServiceGenerator.retrofit);
+//                    callback.onError(error.message());
+                    try {
+                        callback.onError(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t) {
+                if (callback!=null) {
+                    callback.onFailure(t);
+                }
+
             }
         });
     }
