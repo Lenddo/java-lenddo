@@ -22,6 +22,7 @@ public class RequestBody {
     public static final int ENDPOINT_APPLICATIONMULTIPLESCORES = 7;
     public static final int ENDPOINT_AUTHORIZE_HEALTHCHECK = 8;
     public static final int ENDPOINT_AUTHORIZE_ONBOARDING_PRIORITYDATA = 9;
+    public static final int ENDPOINT_NETWORK_MOBILEDATA = 10;
 
     private static final String TAG = RequestBody.class.getName();
 
@@ -100,6 +101,9 @@ public class RequestBody {
                 break;
             case ENDPOINT_AUTHORIZE_ONBOARDING_PRIORITYDATA:
                 this.path = LenddoConfig.ENDPOINT_AUTHORIZE_ONBOARDING_PRIORITYDATA;
+                break;
+            case ENDPOINT_NETWORK_MOBILEDATA:
+                this.path = LenddoConfig.ENDPOINT_NETWORK_MOBILEDATA;
                 break;
             default:
                 Log.e(TAG,"setPath(endpoint, applicationId) Unknown endpoint value: " + endpoint);

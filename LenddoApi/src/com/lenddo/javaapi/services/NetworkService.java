@@ -19,4 +19,12 @@ public interface NetworkService {
                                            @Header("Authorization") String authorization,
                                            @Body Object body
     );
+
+    // GET "/MobileData/{client_id}"
+    @GET(LenddoConfig.ENDPOINT_NETWORK_MOBILEDATA)
+    Call<JsonElement> getMobileData(@Query("partner_script_id") String partner_script_id,
+                                    @Query("partner_id") String partner_id,
+                                    @Header("Date") String date,
+                                    @Header("Authorization") String authorization
+    );
 }
