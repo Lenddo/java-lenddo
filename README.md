@@ -150,6 +150,22 @@ Here is a sample raw response:
 
 7) To post **ExtraApplicationData**, call the postExtraApplicationData(applicationId, extraData, callback) method and provide the application_id, extraData as a JsonObject and a LenddoApiCallback object as parameter. Your partnerscript must enable the feature for sending extra data.
 
+Create a Credentials class to hold credential information
+
+```java
+    public static class Credentials {
+        public String api_key;
+        public String api_secret;
+        public String partner_script_id;
+
+        Credentials (String api_key, String api_secret, String partner_script_id) {
+            this.api_key = api_key;
+            this.api_secret = api_secret;
+            this.partner_script_id = partner_script_id;
+        }
+    }
+```
+
 
 ```java
     // TEST CODE FOR SEND EXTRA PARTNER DATA
