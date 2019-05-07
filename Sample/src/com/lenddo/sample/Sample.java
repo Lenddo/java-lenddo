@@ -27,16 +27,13 @@ public class Sample {
 
     public static void main(String[] args) {
         // Enter your credentials here:
-//        String api_key = "YOUR LENDDO PROVIDED API KEY";
-//        String api_secret = "YOUR LENDDO PROVIDED API SECRET";
-//        String partner_script_id = "YOUR LENDDO PROVIDED PARTNER SCRIPT ID";
-
-        String api_key = "ad0215ad0215ad0215ad0215";
-        String api_secret = "iseedeadpeople";
-        String partner_script_id = "5c176c19f5b4950142448541";
+        String api_key = "YOUR LENDDO PROVIDED API KEY";
+        String api_secret = "YOUR LENDDO PROVIDED API SECRET";
+        String partner_script_id = "YOUR LENDDO PROVIDED PARTNER SCRIPT ID";
+        String private_key = "YOUR PRIVATE KEY";
+        String document_id = "DOCUMENT ID";
 
         Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
-
 
         // Test ApplicationScore API
         String applicationId = "YOUR APPLICATION ID";
@@ -52,7 +49,9 @@ public class Sample {
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
 
-        sampleGetApplications(credentials, "");
+        sampleGetApplications(credentials, private_key);
+        sampleGetApplicationDetails(credentials, private_key, applicationId);
+        sampleGetDocumentByApplicationId(credentials, private_key, applicationId, document_id);
     }
 
 
@@ -291,6 +290,48 @@ public class Sample {
         LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
         LenddoApplicationApi.debugMode(true);
         lenddoApplicationApi.getApplications(credentials.partner_script_id, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    private static void sampleGetApplicationDetails(Credentials credentials, String privateKey, String applicationId) {
+        LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+        LenddoApplicationApi.debugMode(true);
+        lenddoApplicationApi.getApplicationDetails(credentials.partner_script_id, applicationId, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    private static void sampleGetDocumentByApplicationId(Credentials credentials, String privateKey, String applicationId, String documentId) {
+        LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+        LenddoApplicationApi.debugMode(true);
+        lenddoApplicationApi.getDocumentByApplicationId(credentials.partner_script_id, applicationId, documentId, new LenddoApiCallback() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
