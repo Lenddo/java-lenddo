@@ -10,7 +10,8 @@ public class LenddoConfig {
     public static final String whitelabel_base_url = "https://networkservice.lenddo.com";
     public static final String onboarding_base_url = "https://authorize.lenddo.com";
     public static final String authorize_base_url = "https://authorize-api.partner-service.link";
-    public static final String applications_base_url = "https://frodo.partner-service.link";
+//    public static final String applications_base_url = "https://frodo.partner-service.link";
+    public static final String applications_base_url = "https://frodo.lendqa.com";
     public static final String ENDPOINT_SCORE_APPLICATIONSCORECARDS = "/ApplicationScorecards/";
     public static final String ENDPOINT_SCORE_APPLICATIONSCORE = "/ApplicationScore/";
     public static final String ENDPOINT_SCORE_APPLICATIONVERIFICATION = "/ApplicationVerification/";

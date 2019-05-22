@@ -3,7 +3,6 @@ package com.lenddo.sample;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lenddo.javaapi.LenddoApplicationApi;
 import com.lenddo.javaapi.*;
 import com.lenddo.javaapi.models.*;
 import com.lenddo.javaapi.utils.ApiUtils;
@@ -28,10 +27,9 @@ public class Sample {
 
     public static void main(String[] args) {
         // Enter your credentials here:
-        String api_key = "YOUR LENDDO PROVIDED API KEY";
-        String api_secret = "YOUR LENDDO PROVIDED API SECRET";
-        String partner_script_id = "YOUR LENDDO PROVIDED PARTNER SCRIPT ID";
-        String private_key = "YOUR PRIVATE KEY";
+        String api_key = "ad0215ad0215ad0215ad0215";
+        String partner_script_id = "5c38078964ba782550c6fa88";
+        String private_key = "Sample\\private.pem";
         String document_id = "DOCUMENT ID";
 
         Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
@@ -50,9 +48,9 @@ public class Sample {
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
 
-        sampleGetApplications(credentials, private_key);
-        sampleGetApplicationDetails(credentials, private_key, applicationId);
-        sampleGetDocumentByApplicationId(credentials, private_key, applicationId, document_id);
+//        sampleGetApplications(credentials, private_key);
+        sampleGetApplicationDetails(credentials, private_key, "TESTjqrgls14");
+//        sampleGetDocumentByApplicationId(credentials, private_key, applicationId, document_id);
     }
 
 
@@ -293,7 +291,7 @@ public class Sample {
         lenddoApplicationApi.getApplications(credentials.partner_script_id, new LenddoApiCallback() {
             @Override
             public void onResponse(Object response) {
-                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+                System.out.println("response=" + ApiUtils.convertObjectToJsonString(response));
             }
 
             @Override

@@ -14,14 +14,14 @@ public interface LenddoApplicationService {
 
     // GET "/applications/partnerscripts/{partnerscript_id}"
     @GET("/applications/partnerscripts/{partner_script_id}")
-    Call<Applications> getApplications(@Path("partner_script_id") String partner_script_id,
+    Call<EncryptedResponse> getApplications(@Path("partner_script_id") String partner_script_id,
                                        @Header("Date") String date,
                                        @Header("Authorization") String authorization
     );
 
     // GET "/applications/partnerscripts/{partner_script_id}/applicationids/{application_id}"
     @GET("/applications/partnerscripts/{partner_script_id}/applicationids/{application_id}")
-    Call<JsonElement> getApplicationDetails(@Path("partner_script_id") String partner_script_id,
+    Call<EncryptedResponse> getApplicationDetails(@Path("partner_script_id") String partner_script_id,
                                             @Path("application_id") String application_id,
                                             @Header("Date") String date,
                                             @Header("Authorization") String authorization
@@ -29,7 +29,7 @@ public interface LenddoApplicationService {
 
     // GET "/applications/partnerscripts/{partner_script_id}/applicationids/{application_id}/documents/{document_id}"
     @GET("/applications/partnerscripts/{partner_script_id}/applicationids/{application_id}/documents/{document_id}")
-    Call<JsonElement> getDocumentByApplicationId(@Path("partner_script_id") String partner_script_id,
+    Call<EncryptedResponse> getDocumentByApplicationId(@Path("partner_script_id") String partner_script_id,
                                                  @Path("application_id") String application_id,
                                                  @Path("document_id") String document_id,
                                                  @Header("Date") String date,

@@ -4,8 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.lenddo.javaapi.models.ApplicationScore;
 import com.lenddo.javaapi.models.Applications;
+import com.lenddo.javaapi.models.EncryptedResponse;
 import com.lenddo.javaapi.services.LenddoApplicationService;
 import com.lenddo.javaapi.utils.ApiUtils;
+import com.lenddo.javaapi.utils.DecryptionUtil;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;
 import retrofit2.Call;
@@ -111,23 +113,27 @@ public class LenddoApplicationApi {
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, "");
         Log.d(TAG, "Message body:\n" + requestbody.toString());
-        Call<Applications> call = getLenddoApplicationService().getApplications(
+        Call<EncryptedResponse> call = getLenddoApplicationService().getApplications(
                 partnerScriptId,
                 date,
                 ApiUtils.getAuthorization(getApikey(),
                         getApisecret(),
                         requestbody.toString()));
 
-        call.enqueue(new Callback<Applications>() {
+        call.enqueue(new Callback<EncryptedResponse>() {
             @Override
-            public void onResponse(Call<Applications> call, Response<Applications> response) {
+            public void onResponse(Call<EncryptedResponse> call, Response<EncryptedResponse> response) {
                 if (response.isSuccessful()) {
-                    Applications responseItem = response.body();
+                    EncryptedResponse responseItem = response.body();
                     if (responseItem == null) {
-                        responseItem = new Applications();
+                        responseItem = new EncryptedResponse();
                     }
                     Log.d(TAG,"Applications: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
-                    callback.onResponse(responseItem);
+
+                    DecryptionUtil decryptionUtil = new DecryptionUtil();
+                    String decryptedText = decryptionUtil.decryptData(responseItem, private_key);
+                    Log.d(TAG,"Applications: Async Decrypted Response => " + decryptedText);
+                    callback.onResponse(decryptedText);
                 } else {
                     try {
                         callback.onError(response.errorBody().string());
@@ -137,7 +143,7 @@ public class LenddoApplicationApi {
                 }
             }
             @Override
-            public void onFailure(Call<Applications> call, Throwable t) {
+            public void onFailure(Call<EncryptedResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
@@ -146,9 +152,9 @@ public class LenddoApplicationApi {
     public void getApplicationDetails(String partnerScriptId, String applicationId, LenddoApiCallback callback) {
         Log.d(TAG,"GET /applications/partnerscripts/" + partnerScriptId + "/applicationids/" + applicationId);
         String date = ApiUtils.getDate();
-        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, partnerScriptId);
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, applicationId);
         Log.d(TAG, "Message body:\n" + requestbody.toString());
-        Call<JsonElement> call = getLenddoApplicationService().getApplicationDetails(
+        Call<EncryptedResponse> call = getLenddoApplicationService().getApplicationDetails(
                 partnerScriptId,
                 applicationId,
                 date,
@@ -156,16 +162,20 @@ public class LenddoApplicationApi {
                         getApisecret(),
                         requestbody.toString()));
 
-        call.enqueue(new Callback<JsonElement>() {
+        call.enqueue(new Callback<EncryptedResponse>() {
             @Override
-            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+            public void onResponse(Call<EncryptedResponse> call, Response<EncryptedResponse> response) {
                 if (response.isSuccessful()) {
-                    JsonElement responseItem = response.body();
+                    EncryptedResponse responseItem = response.body();
                     if (responseItem == null) {
-                        responseItem = new JsonNull();
+                        responseItem = new EncryptedResponse();
                     }
                     Log.d(TAG,"Applications: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
-                    callback.onResponse(responseItem);
+
+                    DecryptionUtil decryptionUtil = new DecryptionUtil();
+                    String decryptedText = decryptionUtil.decryptData(responseItem, private_key);
+                    Log.d(TAG,"Applications: Async Decrypted Response => " + decryptedText);
+                    callback.onResponse(decryptedText);
                 } else {
                     try {
                         callback.onError(response.errorBody().string());
@@ -175,7 +185,7 @@ public class LenddoApplicationApi {
                 }
             }
             @Override
-            public void onFailure(Call<JsonElement> call, Throwable t) {
+            public void onFailure(Call<EncryptedResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
@@ -186,7 +196,7 @@ public class LenddoApplicationApi {
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, partnerScriptId);
         Log.d(TAG, "Message body:\n" + requestbody.toString());
-        Call<JsonElement> call = getLenddoApplicationService().getDocumentByApplicationId(
+        Call<EncryptedResponse> call = getLenddoApplicationService().getDocumentByApplicationId(
                 partnerScriptId,
                 applicationId,
                 documentId,
@@ -195,16 +205,20 @@ public class LenddoApplicationApi {
                         getApisecret(),
                         requestbody.toString()));
 
-        call.enqueue(new Callback<JsonElement>() {
+        call.enqueue(new Callback<EncryptedResponse>() {
             @Override
-            public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+            public void onResponse(Call<EncryptedResponse> call, Response<EncryptedResponse> response) {
                 if (response.isSuccessful()) {
-                    JsonElement responseItem = response.body();
+                    EncryptedResponse responseItem = response.body();
                     if (responseItem == null) {
-                        responseItem = new JsonNull();
+                        responseItem = new EncryptedResponse();
                     }
                     Log.d(TAG,"Applications: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
-                    callback.onResponse(responseItem);
+
+                    DecryptionUtil decryptionUtil = new DecryptionUtil();
+                    String decryptedText = decryptionUtil.decryptData(responseItem, private_key);
+                    Log.d(TAG,"Applications: Async Decrypted Response => " + decryptedText);
+                    callback.onResponse(decryptedText);
                 } else {
                     try {
                         callback.onError(response.errorBody().string());
@@ -214,7 +228,7 @@ public class LenddoApplicationApi {
                 }
             }
             @Override
-            public void onFailure(Call<JsonElement> call, Throwable t) {
+            public void onFailure(Call<EncryptedResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });
