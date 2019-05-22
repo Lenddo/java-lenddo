@@ -118,7 +118,60 @@ public class LenddoApplicationApi {
                 date,
                 ApiUtils.getAuthorization(getApikey(),
                         getApisecret(),
-                        requestbody.toString()));
+                        requestbody.toString())
+        );
+
+        call.enqueue(new Callback<EncryptedResponse>() {
+            @Override
+            public void onResponse(Call<EncryptedResponse> call, Response<EncryptedResponse> response) {
+                if (response.isSuccessful()) {
+                    EncryptedResponse responseItem = response.body();
+                    if (responseItem == null) {
+                        responseItem = new EncryptedResponse();
+                    }
+                    Log.d(TAG,"Applications: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
+
+                    DecryptionUtil decryptionUtil = new DecryptionUtil();
+                    String decryptedText = decryptionUtil.decryptData(responseItem, private_key);
+                    Log.d(TAG,"Applications: Async Decrypted Response => " + decryptedText);
+                    callback.onResponse(decryptedText);
+                } else {
+                    try {
+                        callback.onError(response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<EncryptedResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void getApplicationsWithFilter(String partnerScriptId,
+                                double pageSize,
+                                double pageNumber,
+                                String dateFrom,
+                                String dateTo,
+                                final LenddoApiCallback callback) {
+        Log.d(TAG,"GET /applications/partnerscripts/" + partnerScriptId);
+        String date = ApiUtils.getDate();
+
+        RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, "");
+        Log.d(TAG, "Message body:\n" + requestbody.toString());
+        Call<EncryptedResponse> call = getLenddoApplicationService().getApplicationsWithFilter(
+                partnerScriptId,
+                date,
+                ApiUtils.getAuthorization(getApikey(),
+                        getApisecret(),
+                        requestbody.toString()),
+                pageSize,
+                pageNumber,
+                dateFrom,
+                dateTo
+                );
 
         call.enqueue(new Callback<EncryptedResponse>() {
             @Override

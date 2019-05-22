@@ -27,9 +27,10 @@ public class Sample {
 
     public static void main(String[] args) {
         // Enter your credentials here:
-        String api_key = "ad0215ad0215ad0215ad0215";
-        String partner_script_id = "5c38078964ba782550c6fa88";
+        String api_key = "API KEY";
+        String partner_script_id = "PARTNERSCRIPT ID";
         String private_key = "Sample\\private.pem";
+        String api_secret = "API SECRET";
         String document_id = "DOCUMENT ID";
 
         Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
@@ -48,8 +49,8 @@ public class Sample {
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
 
-//        sampleGetApplications(credentials, private_key);
-        sampleGetApplicationDetails(credentials, private_key, "TESTjqrgls14");
+        sampleGetApplications(credentials, private_key);
+//        sampleGetApplicationDetails(credentials, private_key, "APP ID");
 //        sampleGetDocumentByApplicationId(credentials, private_key, applicationId, document_id);
     }
 
