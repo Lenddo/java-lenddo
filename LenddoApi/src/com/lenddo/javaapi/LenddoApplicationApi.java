@@ -181,11 +181,11 @@ public class LenddoApplicationApi {
                     if (responseItem == null) {
                         responseItem = new EncryptedResponse();
                     }
-                    Log.d(TAG,"Applications: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
+                    Log.d(TAG,"Applications With Filter: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
 
                     DecryptionUtil decryptionUtil = new DecryptionUtil();
                     String decryptedText = decryptionUtil.decryptData(responseItem, private_key);
-                    Log.d(TAG,"Applications: Async Decrypted Response => " + decryptedText);
+                    Log.d(TAG,"Applications With Filter: Async Decrypted Response => " + decryptedText);
                     callback.onResponse(decryptedText);
                 } else {
                     try {
@@ -223,11 +223,11 @@ public class LenddoApplicationApi {
                     if (responseItem == null) {
                         responseItem = new EncryptedResponse();
                     }
-                    Log.d(TAG,"Applications: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
+                    Log.d(TAG,"Application Details: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
 
                     DecryptionUtil decryptionUtil = new DecryptionUtil();
                     String decryptedText = decryptionUtil.decryptData(responseItem, private_key);
-                    Log.d(TAG,"Applications: Async Decrypted Response => " + decryptedText);
+                    Log.d(TAG,"Application Details: Async Decrypted Response => " + decryptedText);
                     callback.onResponse(decryptedText);
                 } else {
                     try {
@@ -244,12 +244,12 @@ public class LenddoApplicationApi {
         });
     }
 
-    public void getDocumentByApplicationId(String partnerScriptId, String applicationId, String documentId, LenddoApiCallback callback) {
+    public void getDocumentDetails(String partnerScriptId, String applicationId, String documentId, LenddoApiCallback callback) {
         Log.d(TAG,"GET /applications/partnerscripts/" + partnerScriptId + "/applicationids/" + applicationId + "/documents/" + documentId);
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, partnerScriptId);
         Log.d(TAG, "Message body:\n" + requestbody.toString());
-        Call<EncryptedResponse> call = getLenddoApplicationService().getDocumentByApplicationId(
+        Call<EncryptedResponse> call = getLenddoApplicationService().getDocumentDetails(
                 partnerScriptId,
                 applicationId,
                 documentId,
@@ -266,11 +266,11 @@ public class LenddoApplicationApi {
                     if (responseItem == null) {
                         responseItem = new EncryptedResponse();
                     }
-                    Log.d(TAG,"Applications: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
+                    Log.d(TAG,"Applications Document Details: Async RAW Response => " + ApiUtils.convertObjectToJsonString(responseItem));
 
                     DecryptionUtil decryptionUtil = new DecryptionUtil();
                     String decryptedText = decryptionUtil.decryptData(responseItem, private_key);
-                    Log.d(TAG,"Applications: Async Decrypted Response => " + decryptedText);
+                    Log.d(TAG,"Applications Document Details: Async Decrypted Response => " + decryptedText);
                     callback.onResponse(decryptedText);
                 } else {
                     try {

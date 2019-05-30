@@ -33,10 +33,17 @@ public class Sample {
         String api_secret = "API SECRET";
         String document_id = "DOCUMENT ID";
 
+        double pageSize = 100;
+        double pageNumber = 1;
+
+        // Format 2019-05-30 20:00
+        String startDate = "START DATE";
+        String endDate = "END DATE";
+
         Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
 
         // Test ApplicationScore API
-        String applicationId = "YOUR APPLICATION ID";
+        String applicationId = "APPLICATION ID";
         getApplicationScore(credentials, applicationId);
 
         // Test ApplicationScorecards API
@@ -49,9 +56,11 @@ public class Sample {
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
 
+        // Test Applications API
         sampleGetApplications(credentials, private_key);
-//        sampleGetApplicationDetails(credentials, private_key, "APP ID");
-//        sampleGetDocumentByApplicationId(credentials, private_key, applicationId, document_id);
+        sampleGetApplicationsWithFilter(credentials, private_key, pageSize, pageNumber, startDate, endDate);
+        sampleGetApplicationDetails(credentials, private_key, applicationId);
+        sampleGetDocumentDetails(credentials, private_key, applicationId, document_id);
     }
 
 
@@ -307,6 +316,38 @@ public class Sample {
         });
     }
 
+    private static void sampleGetApplicationsWithFilter(Credentials credentials,
+                                                        String privateKey,
+                                                        double pageSize,
+                                                        double pageNumber,
+                                                        String startDate,
+                                                        String endDate) {
+        LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+        LenddoApplicationApi.debugMode(true);
+        lenddoApplicationApi.getApplicationsWithFilter(
+                credentials.partner_script_id,
+                pageSize,
+                pageNumber,
+                startDate,
+                endDate,
+                new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response=" + ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
     private static void sampleGetApplicationDetails(Credentials credentials, String privateKey, String applicationId) {
         LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
         LenddoApplicationApi.debugMode(true);
@@ -328,10 +369,10 @@ public class Sample {
         });
     }
 
-    private static void sampleGetDocumentByApplicationId(Credentials credentials, String privateKey, String applicationId, String documentId) {
+    private static void sampleGetDocumentDetails(Credentials credentials, String privateKey, String applicationId, String documentId) {
         LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
         LenddoApplicationApi.debugMode(true);
-        lenddoApplicationApi.getDocumentByApplicationId(credentials.partner_script_id, applicationId, documentId, new LenddoApiCallback() {
+        lenddoApplicationApi.getDocumentDetails(credentials.partner_script_id, applicationId, documentId, new LenddoApiCallback() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));

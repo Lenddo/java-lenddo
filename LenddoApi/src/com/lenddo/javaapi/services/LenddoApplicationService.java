@@ -39,7 +39,7 @@ public interface LenddoApplicationService {
 
     // GET "/applications/partnerscripts/{partner_script_id}/applicationids/{application_id}/documents/{document_id}"
     @GET("/applications/partnerscripts/{partner_script_id}/applicationids/{application_id}/documents/{document_id}")
-    Call<EncryptedResponse> getDocumentByApplicationId(@Path("partner_script_id") String partner_script_id,
+    Call<EncryptedResponse> getDocumentDetails(@Path("partner_script_id") String partner_script_id,
                                                        @Path("application_id") String application_id,
                                                        @Path("document_id") String document_id,
                                                        @Header("Date") String date,
