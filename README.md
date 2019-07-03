@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.9.0
+##### v2.10.0
 
 ### 
 ###
@@ -392,7 +392,265 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
     }
 ```
 
+### Secured Data Api
+The Secured Data API utilizes application endpoints.
+The project must have LenddoApi.jar, and as well as the Bouncy Castle JARs
+[bckpix-jdk15on-161.jar and bcprov-jdk15on-161.jar](https://www.bouncycastle.org/latest_releases.html)
+This API allows partners to retrieve their data securely through cryptography.
+Every API needs the private key to be passed as a parameter in order to utilize the API.
+
+* Importing the JAR file
+In your project, click File >> Project Settings.
+Go to Modules >> Dependencies
+![Depencency List](https://github.com/Lenddo/java-lenddo/master/Wiki/secured_001_dependencies.PNG)
+
+Click the + sign on the right, then choose JAR
+![Add JAR](https://github.com/Lenddo/java-lenddo/master/Wiki/secured_002_add.PNG)
+
+Select the LenddoAPI JAR. Do the same for bckpix and bcprov JAR files.
+![List](https://github.com/Lenddo/java-lenddo/master/Wiki/secured_003_list.PNG)
+
+* Initialization
+The client must also have the copy of the private key generated.
+The decryption key (PEM File) should exist in your local directory or network which will then be used during instantiation of the client.
+
+To generate the key, run the following in your terminal to create the private key
+```
+openssl genrsa -out private.pem 2048
+```
+Then create a public key (this will be provided to us through your respective account manager)
+```
+openssl rsa -in private.pem -outform PEM -pubout -out public.pem
+```
+
+```java
+        // Required imports
+       import com.google.gson.JsonArray;
+       import com.google.gson.JsonElement;
+       import com.google.gson.JsonObject;
+       import com.lenddo.javaapi.*;
+       import com.lenddo.javaapi.models.*;
+       import com.lenddo.javaapi.utils.ApiUtils;
+
+        // Provide your credentials here
+        String api_key = "API KEY";
+        String partner_script_id = "PARTNERSCRIPT ID";
+        String private_key = "Sample\\private.pem"; // Location of your private key
+        String api_secret = "API SECRET";
+        String document_id = "DOCUMENT ID";
+
+        double pageSize = 100;
+        double pageNumber = 1;
+
+        // Format YYYY-MM-dd HH:mm
+        String startDate = "START DATE";
+        String endDate = "END DATE";
+
+        // Initialize
+        Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
+
+        // Test Applications API
+        sampleGetApplications(credentials, private_key);
+        sampleGetApplicationsWithFilter(credentials, private_key, pageSize, pageNumber, startDate, endDate);
+        sampleGetApplicationDetails(credentials, private_key, application_id);
+        sampleGetDocumentDetails(credentials, private_key, application_id, document_id);
+```
+
+1) **Applications** retrieves the list of applications, optional parameters are pageSize, pageNumber, startDate and endDate.
+
+```java
+        // TEST CODE FOR APPLICATIONS
+            private static void sampleGetApplications(Credentials credentials, String privateKey) {
+                LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+                LenddoApplicationApi.debugMode(true);
+                lenddoApplicationApi.getApplications(credentials.partner_script_id, new LenddoApiCallback() {
+                    @Override
+                    public void onResponse(Object response) {
+                        System.out.println("sampleGetApplications response=" + ApiUtils.convertObjectToJsonString(response));
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        System.out.println("Connection Failure: "+t.getMessage());
+                    }
+
+                    @Override
+                    public void onError(String errormessage) {
+                        System.out.println("Returned error: "+errormessage);
+                    }
+                });
+            }
+
+            private static void sampleGetApplicationsWithFilter(Credentials credentials,
+                                                                String privateKey,
+                                                                double pageSize,
+                                                                double pageNumber,
+                                                                String startDate,
+                                                                String endDate) {
+                LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+                LenddoApplicationApi.debugMode(true);
+                lenddoApplicationApi.getApplicationsWithFilter(
+                        credentials.partner_script_id,
+                        pageSize,
+                        pageNumber,
+                        startDate,
+                        endDate,
+                        new LenddoApiCallback() {
+                    @Override
+                    public void onResponse(Object response) {
+                        System.out.println("sampleGetApplicationsWithFilter response=" + ApiUtils.convertObjectToJsonString(response));
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        System.out.println("Connection Failure: "+t.getMessage());
+                    }
+
+                    @Override
+                    public void onError(String errormessage) {
+                        System.out.println("Returned error: "+errormessage);
+                    }
+                });
+            }
+```
+
+Here is a sample raw response:
+
+```javascript
+{
+	"application_ids": ["TESTjqrgls14", "TESTjqru18mu", ...],
+	"data_count": 412,
+	"page_count": 5
+}
+```
+
+2) **Application Details** retrieves the list of details of an application, given its applicationId.
+
+```java
+         private static void sampleGetApplicationDetails(Credentials credentials, String privateKey, String applicationId) {
+                LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+                LenddoApplicationApi.debugMode(true);
+                lenddoApplicationApi.getApplicationDetails(credentials.partner_script_id, applicationId, new LenddoApiCallback() {
+                    @Override
+                    public void onResponse(Object response) {
+                        System.out.println("sampleGetApplicationDetails response="+ ApiUtils.convertObjectToJsonString(response));
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        System.out.println("Connection Failure: "+t.getMessage());
+                    }
+
+                    @Override
+                    public void onError(String errormessage) {
+                        System.out.println("Returned error: "+errormessage);
+                    }
+                });
+            }
+```
+
+Here is a sample raw response:
+
+```javascript
+{
+	"verification_data": {
+		"name": {
+			"first": "A",
+			"middle": "B",
+			"last": "B"
+		},
+		"date_of_birth": "1989-01-02",
+		"email": "a@test.com",
+		"work_email": "a@test.com",
+		"phone": {
+			"mobile": "+639178012121",
+			"home": null
+		},
+		"employer": null,
+		"employment_period": {
+			"start_date": null,
+			"end_date": null
+		},
+		"mothers_maiden_name": {
+			"first": null,
+			"middle": null,
+			"last": null
+		},
+		"university": null,
+		"address": {
+			"line_1": null,
+			"line_2": null,
+			"city": null,
+			"administrative_division": null,
+			...
+		},
+		"work_address": {
+			"line_1": null,
+			"line_2": null,
+			"city": null,
+			...
+		}
+	},
+	"partner_data": {
+		"name": {
+			"first": "A",
+			"middle": "B",
+			"last": "B"
+		},
+		"birthdate": {
+			"day": "02",
+			"month": "01",
+			"year": "1989"
+		},
+		"email": "a@test.com",
+		"work": "a@test.com",
+		"mobile_phone": "+639178012121"
+	},
+	"verification_results": {},
+	"documents_submitted": [],
+	"documents_pending": []
+}
+```
+
+3) *Document Details* retrives the details of a document given its applicationId and documentId.
+
+```java
+        private static void sampleGetDocumentDetails(Credentials credentials, String privateKey, String applicationId, String documentId) {
+                LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+                LenddoApplicationApi.debugMode(true);
+                lenddoApplicationApi.getDocumentDetails(credentials.partner_script_id, applicationId, documentId, new LenddoApiCallback() {
+                    @Override
+                    public void onResponse(Object response) {
+                        System.out.println("sampleGetDocumentDetails response="+ ApiUtils.convertObjectToJsonString(response));
+                    }
+
+                    @Override
+                    public void onFailure(Throwable t) {
+                        System.out.println("Connection Failure: "+t.getMessage());
+                    }
+
+                    @Override
+                    public void onError(String errormessage) {
+                        System.out.println("Returned error: "+errormessage);
+                    }
+                });
+            }
+```
+
+Here is a sample raw response:
+
+```javascript
+{
+	"content": {
+		"format": "jpg",
+		"value": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA..."
+	}
+}
+```
+
 ### Release Version
+[**v2.10.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.10.0).  - (07/02/2018) Add Secured Data API
+
 [**v2.9.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.9.0).  - (05/16/2018) Add MobileData API call using Network Service
 
 [**v2.8.2**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.8.2).  - (03/08/2018) Update endpoints
@@ -430,6 +688,9 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.10.0 -- (07/02/2018) Add Secured Data API
+- Add Secured Data API
+
 v2.9.0  -- (05/16/2018) Add MobileData API call using Network Service
 - Added /MobileData Api call
 

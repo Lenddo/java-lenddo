@@ -1,6 +1,7 @@
 package com.lenddo.sample;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.lenddo.javaapi.*;
 import com.lenddo.javaapi.models.*;
@@ -26,14 +27,23 @@ public class Sample {
 
     public static void main(String[] args) {
         // Enter your credentials here:
-        String api_key = "YOUR LENDDO PROVIDED API KEY";
-        String api_secret = "YOUR LENDDO PROVIDED API SECRET";
-        String partner_script_id = "YOUR LENDDO PROVIDED PARTNER SCRIPT ID";
+        String api_key = "API KEY";
+        String partner_script_id = "PARTNERSCRIPT ID";
+        String private_key = "Sample\\private.pem";
+        String api_secret = "API SECRET";
+        String document_id = "DOCUMENT ID";
+
+        double pageSize = 100;
+        double pageNumber = 1;
+
+        // Format 2019-05-30 20:00
+        String startDate = "START DATE";
+        String endDate = "END DATE";
+
         Credentials credentials = new Credentials(api_key, api_secret, partner_script_id);
 
-
         // Test ApplicationScore API
-        String applicationId = "YOUR APPLICATION ID";
+        String applicationId = "APPLICATION ID";
         getApplicationScore(credentials, applicationId);
 
         // Test ApplicationScorecards API
@@ -45,6 +55,12 @@ public class Sample {
         // Test Whitelable API
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
+
+        // Test Applications API
+        sampleGetApplications(credentials, private_key);
+        sampleGetApplicationsWithFilter(credentials, private_key, pageSize, pageNumber, startDate, endDate);
+        sampleGetApplicationDetails(credentials, private_key, applicationId);
+        sampleGetDocumentDetails(credentials, private_key, applicationId, document_id);
     }
 
 
@@ -261,6 +277,102 @@ public class Sample {
         NetworkApi networkApi = new NetworkApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
         NetworkApi.debugMode(true);
         networkApi.postExtraApplicationData(applicationId, extraData, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    // TEST CODE FOR APPLICATIONS
+    private static void sampleGetApplications(Credentials credentials, String privateKey) {
+        LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+        LenddoApplicationApi.debugMode(true);
+        lenddoApplicationApi.getApplications(credentials.partner_script_id, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response=" + ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    private static void sampleGetApplicationsWithFilter(Credentials credentials,
+                                                        String privateKey,
+                                                        double pageSize,
+                                                        double pageNumber,
+                                                        String startDate,
+                                                        String endDate) {
+        LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+        LenddoApplicationApi.debugMode(true);
+        lenddoApplicationApi.getApplicationsWithFilter(
+                credentials.partner_script_id,
+                pageSize,
+                pageNumber,
+                startDate,
+                endDate,
+                new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response=" + ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    private static void sampleGetApplicationDetails(Credentials credentials, String privateKey, String applicationId) {
+        LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+        LenddoApplicationApi.debugMode(true);
+        lenddoApplicationApi.getApplicationDetails(credentials.partner_script_id, applicationId, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    private static void sampleGetDocumentDetails(Credentials credentials, String privateKey, String applicationId, String documentId) {
+        LenddoApplicationApi lenddoApplicationApi = new LenddoApplicationApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, privateKey);
+        LenddoApplicationApi.debugMode(true);
+        lenddoApplicationApi.getDocumentDetails(credentials.partner_script_id, applicationId, documentId, new LenddoApiCallback() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
