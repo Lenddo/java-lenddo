@@ -1,9 +1,5 @@
 package com.lenddo.javaapi;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.lenddo.javaapi.models.ApplicationScore;
-import com.lenddo.javaapi.models.Applications;
 import com.lenddo.javaapi.models.EncryptedResponse;
 import com.lenddo.javaapi.services.LenddoApplicationService;
 import com.lenddo.javaapi.utils.ApiUtils;
@@ -101,8 +97,19 @@ public class LenddoApplicationApi {
         setApisecret(apiSecret);
         setPartner_script_id(partner_script_id);
         setPrivate_key(private_key);
+
+        String endpointUrl = "";
+
+        if (LenddoConfig.getApplicationMode().equalsIgnoreCase("prod")) {
+            endpointUrl = LenddoConfig.applications_base_url;
+        } else {
+            endpointUrl = LenddoConfig.applications_base_url_qa;
+        }
+
+        Log.d(TAG, "endpointUrl: " +endpointUrl);
+
         retrofit = new Retrofit.Builder()
-                .baseUrl(LenddoConfig.applications_base_url)
+                .baseUrl(endpointUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         setLenddoApplicationService(retrofit.create(LenddoApplicationService.class));
@@ -202,7 +209,7 @@ public class LenddoApplicationApi {
         });
     }
 
-    public void getApplicationDetails(String partnerScriptId, String applicationId, LenddoApiCallback callback) {
+    public void getApplicationDetails(String partnerScriptId, String applicationId, final LenddoApiCallback callback) {
         Log.d(TAG,"GET /applications/partnerscripts/" + partnerScriptId + "/applicationids/" + applicationId);
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, applicationId);
@@ -244,7 +251,7 @@ public class LenddoApplicationApi {
         });
     }
 
-    public void getDocumentDetails(String partnerScriptId, String applicationId, String documentId, LenddoApiCallback callback) {
+    public void getDocumentDetails(String partnerScriptId, String applicationId, String documentId, final LenddoApiCallback callback) {
         Log.d(TAG,"GET /applications/partnerscripts/" + partnerScriptId + "/applicationids/" + applicationId + "/documents/" + documentId);
         String date = ApiUtils.getDate();
         RequestBody requestbody = new RequestBody(RequestBody.GET_METHOD, null, date, RequestBody.ENDPOINT_APPLICATIONS, partnerScriptId);
