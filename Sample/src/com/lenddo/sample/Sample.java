@@ -56,6 +56,9 @@ public class Sample {
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
 
+        // For invoking application endpoints, set to qa or prod
+        LenddoConfig.setApplicationMode("prod");
+
         // Test Applications API
         sampleGetApplications(credentials, private_key);
         sampleGetApplicationsWithFilter(credentials, private_key, pageSize, pageNumber, startDate, endDate);
