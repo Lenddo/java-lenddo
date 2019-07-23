@@ -1,13 +1,7 @@
 package com.lenddo.javaapi;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.lenddo.javaapi.models.ApplicationScore;
-import com.lenddo.javaapi.models.Applications;
 import com.lenddo.javaapi.models.EncryptedResponse;
-import com.lenddo.javaapi.services.AuthorizeService;
 import com.lenddo.javaapi.services.LenddoApplicationService;
-import com.lenddo.javaapi.services.ServiceGenerator;
 import com.lenddo.javaapi.utils.ApiUtils;
 import com.lenddo.javaapi.utils.DecryptionUtil;
 import com.lenddo.javaapi.utils.Log;
