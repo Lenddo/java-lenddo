@@ -1,11 +1,13 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.10.0
+##### v2.10.1
 
 ### 
 ###
 Java-Lenddo is a Java SDK for getting Lenddo's ApplicationScore and ApplicationVerification. Usage is very simple and straightforward. This supports Asynchronous calls and will return a POJO. It is possible to get a JSON String from the response using a provided utility method. [Click here](UIDemo.jar) for demo
+
+Minimum required JAVA version is Java 8.
 
 ### Usage
 1) Download the latest [LenddoApi.zip](https://github.com/Lenddo/java-lenddo/releases) file, extract and add the LenddoApi.jar to your Java project as a library.
@@ -649,7 +651,7 @@ Here is a sample raw response:
 ```
 
 ### Release Version
-[**v2.10.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.10.0).  - (07/02/2018) Add Secured Data API
+[**v2.10.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.10.0).  - (07/24/2018) Add Secured Data API
 
 [**v2.9.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.9.0).  - (05/16/2018) Add MobileData API call using Network Service
 
