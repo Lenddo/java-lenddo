@@ -257,7 +257,12 @@ public class Sample {
         verification.name.first="firstname";
         verification.name.last="lastname";
 
-        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, new LenddoApiCallback() {
+        JsonObject partner_data = new JsonObject();
+        partner_data.addProperty("sample_partner_data_1", 1);
+        partner_data.addProperty("sample_partner_data_2", "This is a string data");
+        partner_data.addProperty("sample_partner_data_3", true);
+
+        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, partner_data, new LenddoApiCallback() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));

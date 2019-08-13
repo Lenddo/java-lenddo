@@ -1,6 +1,7 @@
 package com.lenddo.javaapi;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.lenddo.javaapi.models.CommitPartnerJob;
 import com.lenddo.javaapi.models.PartnerToken;
 import com.lenddo.javaapi.models.Verification;
@@ -184,7 +185,7 @@ public class WhiteLabelApi {
      * @param applicationtId  the application id number is the client id
      * @param callback  the response handler
      */
-    public void postCommitPartnerJob(String applicationtId, JsonArray profile_ids, Verification verification, final LenddoApiCallback callback) {
+    public void postCommitPartnerJob(String applicationtId, JsonArray profile_ids, Verification verification, JsonElement partner_data, final LenddoApiCallback callback) {
         Log.d(TAG,"POST /CommitPartnerJob");
         String date = ApiUtils.getDate();
         WhitelabelRequestBody.WLCommitPartnerJobRqBody body = new WhitelabelRequestBody.WLCommitPartnerJobRqBody();
@@ -195,6 +196,9 @@ public class WhiteLabelApi {
             body.verification_data = verification;
         } else {
             body.verification_data = new Verification();
+        }
+        if (partner_data!=null) {
+            body.partner_data = partner_data;
         }
         RequestBody requestbody = new RequestBody(RequestBody.POST_METHOD,ApiUtils.md5(ApiUtils.convertObjectToJsonStringNoNulls(body)),date,RequestBody.ENDPOINT_WL_COMMITPARTNERJOB,applicationtId);
         System.out.println("\nRequest = "+ApiUtils.convertObjectToJsonStringNoNulls(body)+"\n\n");
