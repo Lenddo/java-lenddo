@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.10.1
+##### v2.11.0
 
 ### 
 ###
@@ -375,7 +375,12 @@ The Lenddo WhiteLabel client api provides two primary functions, sending a netwo
         verification.name.first="firstname";
         verification.name.last="lastname";
         
-        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, new LenddoApiCallback() {
+        JsonObject partner_data = new JsonObject();
+                partner_data.addProperty("sample_partner_data_1", 1);
+                partner_data.addProperty("sample_partner_data_2", "This is a string data");
+                partner_data.addProperty("sample_partner_data_3", true);
+        
+        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, partner_data, new LenddoApiCallback() {
             @Override
             public void onResponse(Object response) {
                 System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
@@ -651,7 +656,9 @@ Here is a sample raw response:
 ```
 
 ### Release Version
-[**v2.10.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.10.0).  - (07/24/2018) Add Secured Data API
+[**v2.11.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.11.0).  - (08/13/2019) Whitelabel CommitPartnerJob
+
+[**v2.10.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.10.0).  - (07/24/2019) Add Secured Data API
 
 [**v2.9.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.9.0).  - (05/16/2018) Add MobileData API call using Network Service
 
@@ -690,6 +697,9 @@ Here is a sample raw response:
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.11.0 -- (08/13/2019) Whitelabel CommitPartnerJob
+- Add partner_data to POST CommitPartnerJob
+
 v2.10.0 -- (07/02/2018) Add Secured Data API
 - Add Secured Data API
 

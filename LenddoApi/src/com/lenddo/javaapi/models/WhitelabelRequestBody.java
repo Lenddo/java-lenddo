@@ -1,6 +1,7 @@
 package com.lenddo.javaapi.models;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 /**
  * Created by Joey Mar Antonio on 10/13/16.
@@ -23,5 +24,6 @@ public class WhitelabelRequestBody {
         public String partner_script_id;
         public JsonArray profile_ids;
         public Verification verification_data;
+        public JsonElement partner_data;
     }
 }
