@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.lenddo.javaapi.*;
 import com.lenddo.javaapi.models.*;
 import com.lenddo.javaapi.utils.ApiUtils;
+import com.lenddo.sample.whitelabel.WhitelabelSample;
 
 /**
  * Created by Joey Mar Antonio on 1/18/16.
@@ -55,6 +56,17 @@ public class Sample {
         // Test Whitelable API
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
+//        samplePostPartnerToken(credentials, applicationId, provider);
+//        samplePostCommitPartnerJob(credentials, applicationId, provider);
+
+        WhitelabelSample whitelabelSample = new WhitelabelSample();
+        whitelabelSample.postPartnerToken(
+                api_key,
+                api_secret,
+                applicationId,
+                partner_script_id,
+                provider
+        );
 
         // For invoking application endpoints, set to qa or prod
         LenddoConfig.setApplicationMode("prod");
