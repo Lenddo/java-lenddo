@@ -7,6 +7,9 @@ import com.lenddo.javaapi.*;
 import com.lenddo.javaapi.models.*;
 import com.lenddo.javaapi.utils.ApiUtils;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+
 /**
  * Created by Joey Mar Antonio on 1/18/16.
  */
@@ -55,6 +58,18 @@ public class Sample {
         // Test Whitelable API
         String provider = WhiteLabelApi.PROVIDER_WINDOWSLIVE;
         samplePostPartnerToken(credentials, applicationId, provider);
+
+        // Replace with your Proxy Configuration
+        java.net.Proxy proxy = new Proxy(
+                Proxy.Type.HTTP,
+                new InetSocketAddress("localhost", 8080));
+
+        samplePostCommitPartnerJobWithProxy(
+                credentials,
+                applicationId,
+                provider,
+                proxy
+        );
 
         // For invoking application endpoints, set to qa or prod
         LenddoConfig.setApplicationMode("prod");
@@ -250,6 +265,77 @@ public class Sample {
     // TEST CODE FOR COMMITPARTNERJOB API
     private static void samplePostCommitPartnerJob(Credentials credentials, String applicationId, String profileId) {
         WhiteLabelApi whiteLabelApi = new WhiteLabelApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
+        JsonArray profile_ids = new JsonArray();
+        profile_ids.add(profileId);
+        Verification verification = new Verification();
+        // at this point, you need to add details for the verification object. (name, employer, etc).
+        verification.name.first="firstname";
+        verification.name.last="lastname";
+
+        JsonObject partner_data = new JsonObject();
+        partner_data.addProperty("sample_partner_data_1", 1);
+        partner_data.addProperty("sample_partner_data_2", "This is a string data");
+        partner_data.addProperty("sample_partner_data_3", true);
+
+        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, partner_data, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    private static void samplePostCommitPartnerJobWithProxy(Credentials credentials,
+                                                            String applicationId,
+                                                            String profileId,
+                                                            Proxy proxy) {
+        WhiteLabelApi whiteLabelApi = new WhiteLabelApi(
+                credentials.api_key,
+                credentials.api_secret,
+                credentials.partner_script_id,
+                proxy);
+        JsonArray profile_ids = new JsonArray();
+        profile_ids.add(profileId);
+        Verification verification = new Verification();
+        // at this point, you need to add details for the verification object. (name, employer, etc).
+        verification.name.first="firstname";
+        verification.name.last="lastname";
+
+        JsonObject partner_data = new JsonObject();
+        partner_data.addProperty("sample_partner_data_1", 1);
+        partner_data.addProperty("sample_partner_data_2", "This is a string data");
+        partner_data.addProperty("sample_partner_data_3", true);
+
+        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, partner_data, new LenddoApiCallback() {
+            @Override
+            public void onResponse(Object response) {
+                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                System.out.println("Connection Failure: "+t.getMessage());
+            }
+
+            @Override
+            public void onError(String errormessage) {
+                System.out.println("Returned error: "+errormessage);
+            }
+        });
+    }
+
+    private static void samplePostCommitPartnerJob(Credentials credentials, String applicationId, String profileId, Proxy proxy) {
+        WhiteLabelApi whiteLabelApi = new WhiteLabelApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, proxy);
         JsonArray profile_ids = new JsonArray();
         profile_ids.add(profileId);
         Verification verification = new Verification();
