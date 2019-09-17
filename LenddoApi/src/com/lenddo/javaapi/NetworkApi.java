@@ -7,6 +7,7 @@ import com.lenddo.javaapi.services.NetworkService;
 import com.lenddo.javaapi.utils.ApiUtils;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,6 +15,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.net.Proxy;
 
 /**
  * Created by Joey Mar Antonio on 07/04/2017.
@@ -127,6 +129,65 @@ public class NetworkApi {
         retrofit = new Retrofit.Builder()
                 .baseUrl(base_url)
                 .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        setService(retrofit.create(NetworkService.class));
+    }
+
+    /**
+     * Class constructor specifying apiKey, apiSecret with proxy.
+     */
+    public NetworkApi(String apiKey, String apiSecret, Proxy proxy) {
+        Log.i(TAG, "Initialize NetworkApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+
+        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(LenddoConfig.whitelabel_base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        setService(retrofit.create(NetworkService.class));
+    }
+
+    /**
+     * Class constructor specifying apiKey, apiSecret and partner_script_id with proxy.
+     */
+    public NetworkApi(String apiKey, String apiSecret, String partner_script_id, Proxy proxy) {
+        Log.i(TAG, "Initialize NetworkApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        setPartnerScriptID(partner_script_id);
+
+        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(LenddoConfig.whitelabel_base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        setService(retrofit.create(NetworkService.class));
+    }
+
+    /**
+     * Class constructor specifying apiKey, apiSecret, partner_script_id and base_url with proxy.
+     */
+    public NetworkApi(String apiKey, String apiSecret, String partner_script_id, String base_url, Proxy proxy) {
+        Log.i(TAG, "Initialize NetworkApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        setPartnerScriptID(partner_script_id);
+
+        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
         setService(retrofit.create(NetworkService.class));
     }
