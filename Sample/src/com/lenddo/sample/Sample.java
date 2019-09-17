@@ -334,38 +334,6 @@ public class Sample {
         });
     }
 
-    private static void samplePostCommitPartnerJob(Credentials credentials, String applicationId, String profileId, Proxy proxy) {
-        WhiteLabelApi whiteLabelApi = new WhiteLabelApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id, proxy);
-        JsonArray profile_ids = new JsonArray();
-        profile_ids.add(profileId);
-        Verification verification = new Verification();
-        // at this point, you need to add details for the verification object. (name, employer, etc).
-        verification.name.first="firstname";
-        verification.name.last="lastname";
-
-        JsonObject partner_data = new JsonObject();
-        partner_data.addProperty("sample_partner_data_1", 1);
-        partner_data.addProperty("sample_partner_data_2", "This is a string data");
-        partner_data.addProperty("sample_partner_data_3", true);
-
-        whiteLabelApi.postCommitPartnerJob(applicationId, profile_ids, verification, partner_data, new LenddoApiCallback() {
-            @Override
-            public void onResponse(Object response) {
-                System.out.println("response="+ ApiUtils.convertObjectToJsonString(response));
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                System.out.println("Connection Failure: "+t.getMessage());
-            }
-
-            @Override
-            public void onError(String errormessage) {
-                System.out.println("Returned error: "+errormessage);
-            }
-        });
-    }
-
     // TEST CODE FOR SEND EXTRA PARTNER DATA
     private static void samplePostExtraPartnerData(Credentials credentials, String applicationId, JsonObject extraData) {
         NetworkApi networkApi = new NetworkApi(credentials.api_key, credentials.api_secret, credentials.partner_script_id);
