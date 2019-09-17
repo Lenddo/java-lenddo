@@ -6,6 +6,7 @@ import com.lenddo.javaapi.utils.ApiUtils;
 import com.lenddo.javaapi.utils.DecryptionUtil;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,6 +14,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.net.Proxy;
 
 public class LenddoApplicationApi {
 
@@ -111,6 +113,34 @@ public class LenddoApplicationApi {
         retrofit = new Retrofit.Builder()
                 .baseUrl(endpointUrl)
                 .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        setLenddoApplicationService(retrofit.create(LenddoApplicationService.class));
+    }
+
+    public LenddoApplicationApi(String apiKey, String apiSecret, String partner_script_id, String private_key, Proxy proxy) {
+        Log.i(TAG, "Initialize LenddoApplicationApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        setPartner_script_id(partner_script_id);
+        setPrivate_key(private_key);
+
+        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
+
+        String endpointUrl = "";
+
+        if (LenddoConfig.getApplicationMode().equalsIgnoreCase("prod")) {
+            endpointUrl = LenddoConfig.applications_base_url;
+        } else {
+            endpointUrl = LenddoConfig.applications_base_url_qa;
+        }
+
+        Log.d(TAG, "endpointUrl: " +endpointUrl);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(endpointUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
                 .build();
         setLenddoApplicationService(retrofit.create(LenddoApplicationService.class));
     }

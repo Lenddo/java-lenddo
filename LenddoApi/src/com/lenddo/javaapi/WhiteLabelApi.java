@@ -10,6 +10,7 @@ import com.lenddo.javaapi.services.WhitelabelService;
 import com.lenddo.javaapi.utils.ApiUtils;
 import com.lenddo.javaapi.utils.Log;
 import com.lenddo.javaapi.utils.RequestBody;
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.IOException;
+import java.net.Proxy;
 
 /**
  * Created by Joey Mar Antonio on 10/13/2016.
@@ -118,6 +120,47 @@ public class WhiteLabelApi {
                 .build();
         setService(retrofit.create(WhitelabelService.class));
     }
+
+    /**
+     * Class constructor specifying apiKey, apiSecret and partner_script_id with proxy.
+     */
+    public WhiteLabelApi(String apiKey, String apiSecret, String partner_script_id, Proxy proxy) {
+        Log.i(TAG, "Initialize WhiteLabelApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        setPartnerScriptID(partner_script_id);
+
+        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(LenddoConfig.whitelabel_base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        setService(retrofit.create(WhitelabelService.class));
+    }
+
+    /**
+     * Class constructor specifying apiKey, apiSecret, partner_script_id and base_url with proxy.
+     */
+    public WhiteLabelApi(String apiKey, String apiSecret, String partner_script_id, String base_url, Proxy proxy) {
+        Log.i(TAG, "Initialize WhiteLabelApi v" + LenddoConfig.api_version);
+        Log.d(TAG,"\n\tapiKey: "+apiKey+"\n\tapiSecret: "+apiSecret);
+        setApikey(apiKey);
+        setApisecret(apiSecret);
+        setPartnerScriptID(partner_script_id);
+
+        OkHttpClient client = new OkHttpClient.Builder().proxy(proxy).build();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(base_url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        setService(retrofit.create(WhitelabelService.class));
+    }
+
 
     public WhitelabelService getService() {
         return whitelabelService;
