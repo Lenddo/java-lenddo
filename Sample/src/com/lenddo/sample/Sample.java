@@ -29,6 +29,9 @@ public class Sample {
     }
 
     public static void main(String[] args) {
+
+        // Test message
+
         // Enter your credentials here:
         String api_key = "API KEY";
         String partner_script_id = "PARTNERSCRIPT ID";
