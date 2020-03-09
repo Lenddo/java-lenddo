@@ -1,7 +1,7 @@
 ![Lenddo logo](http://cdn.alleywatch.com/wp-content/uploads/2013/11/lendo_logo.png)
 
 # java-lenddo 
-##### v2.12.0
+##### v2.13.0
 
 ### 
 ###
@@ -656,6 +656,8 @@ Here is a sample raw response:
 ```
 
 ### Release Version
+[**v2.13.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.13.0).  - (03/09/2020) Update of Dependency Versions
+
 [**v2.12.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.12.0).  - (09/17/2019) Added proxy option for API invocation
 
 [**v2.11.0**](https://github.com/Lenddo/java-lenddo/releases/tag/v2.11.0).  - (08/13/2019) Whitelabel CommitPartnerJob
@@ -699,6 +701,9 @@ Here is a sample raw response:
 [**v0.0.1**](https://github.com/Lenddo/java-lenddo/releases/tag/v0.0.1).  - (12/09/2015) First Cut
 
 ### Changelogs
+v2.13.0 -- (03/09/2020) Update of Dependency Versions
+- Updated version of Retrofit, Gson, and OkHttp libraries
+
 v2.12.0 -- (09/17/2019) Proxy Option
 - Added proxy as parameter when invoking APIs
 
